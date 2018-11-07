@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/assets/jquery/jquery.js"></script>
+    <script src="/assets/mqtt/mqttws31.js"></script>
+</head>
+<body>
+test mqtt11
+
+<input  type="button" value="send" id="send" >
+
+<script>
+    // Create a client instance
+    client = new Paho.MQTT.Client("www.ie-goal.cn",Number(8083),"jsClient11");
+
+    // set callback handlers
+    client.onConnectionLost = onConnectionLost;
+    client.onMessageArrived = onMessageArrived;
+
+    // connect the client
+    client.connect({onSuccess:onConnect,userName:"admin",password:"password"});
+
+
+    // called when the client connects
+    function onConnect() {
+        // Once a connection has been made, make a subscription and send a message.
+        console.log("onConnect");
+        client.subscribe("lock/d0b75ae9f72a9665/727f");
+    }
+
+
+    function sendMsg(data){
+        message = new Paho.MQTT.Message(data);
+        message.destinationName = "in/00000001";
+        client.send(message);
+    }
+
+    // called when the client loses its connection
+    function onConnectionLost(responseObject) {
+        if (responseObject.errorCode !== 0) {
+            console.log("onConnectionLost:"+responseObject.errorMessage);
+        }
+    }
+
+    // called when a message arrives
+    function onMessageArrived(message) {
+        console.log("onMessageArrived:"+message.payloadString);
+    }
+
+
+
+    $(document).ready(function() {
+
+        $("#send").click(function () {
+            sendMsg("testJS"+new Date().getTime());
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adorgroup.babycar.mqtt.dao.MallAgentSetMapper">
+  <resultMap id="BaseResultMap" type="com.adorgroup.babycar.mqtt.domain.MallAgentSet">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="step" jdbcType="INTEGER" property="step" />
+    <result column="flrate1" jdbcType="DECIMAL" property="flrate1" />
+    <result column="flrate2" jdbcType="DECIMAL" property="flrate2" />
+    <result column="flrate3" jdbcType="DECIMAL" property="flrate3" />
+    <result column="txlimit" jdbcType="INTEGER" property="txlimit" />
+    <result column="stat" jdbcType="INTEGER" property="stat" />
+    <result column="adimg" jdbcType="VARCHAR" property="adimg" />
+    <result column="adtext" jdbcType="VARCHAR" property="adtext" />
+    <result column="time" jdbcType="INTEGER" property="time" />
+    <result column="before_time" jdbcType="INTEGER" property="beforeTime" />
+    <result column="unit_price" jdbcType="INTEGER" property="unitPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, step, flrate1, flrate2, flrate3, txlimit, stat, adimg, adtext, time, before_time, 
+    unit_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mall_agent_set
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mall_agent_set
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.adorgroup.babycar.mqtt.domain.MallAgentSet">
+    insert into mall_agent_set (id, step, flrate1, 
+      flrate2, flrate3, txlimit, 
+      stat, adimg, adtext, 
+      time, before_time, unit_price
+      )
+    values (#{id,jdbcType=INTEGER}, #{step,jdbcType=INTEGER}, #{flrate1,jdbcType=DECIMAL}, 
+      #{flrate2,jdbcType=DECIMAL}, #{flrate3,jdbcType=DECIMAL}, #{txlimit,jdbcType=INTEGER}, 
+      #{stat,jdbcType=INTEGER}, #{adimg,jdbcType=VARCHAR}, #{adtext,jdbcType=VARCHAR}, 
+      #{time,jdbcType=INTEGER}, #{beforeTime,jdbcType=INTEGER}, #{unitPrice,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.adorgroup.babycar.mqtt.domain.MallAgentSet">
+    insert into mall_agent_set
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="step != null">
+        step,
+      </if>
+      <if test="flrate1 != null">
+        flrate1,
+      </if>
+      <if test="flrate2 != null">
+        flrate2,
+      </if>
+      <if test="flrate3 != null">
+        flrate3,
+      </if>
+      <if test="txlimit != null">
+        txlimit,
+      </if>
+      <if test="stat != null">
+        stat,
+      </if>
+      <if test="adimg != null">
+        adimg,
+      </if>
+      <if test="adtext != null">
+        adtext,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="beforeTime != null">
+        before_time,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="step != null">
+        #{step,jdbcType=INTEGER},
+      </if>
+      <if test="flrate1 != null">
+        #{flrate1,jdbcType=DECIMAL},
+      </if>
+      <if test="flrate2 != null">
+        #{flrate2,jdbcType=DECIMAL},
+      </if>
+      <if test="flrate3 != null">
+        #{flrate3,jdbcType=DECIMAL},
+      </if>
+      <if test="txlimit != null">
+        #{txlimit,jdbcType=INTEGER},
+      </if>
+      <if test="stat != null">
+        #{stat,jdbcType=INTEGER},
+      </if>
+      <if test="adimg != null">
+        #{adimg,jdbcType=VARCHAR},
+      </if>
+      <if test="adtext != null">
+        #{adtext,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="beforeTime != null">
+        #{beforeTime,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adorgroup.babycar.mqtt.domain.MallAgentSet">
+    update mall_agent_set
+    <set>
+      <if test="step != null">
+        step = #{step,jdbcType=INTEGER},
+      </if>
+      <if test="flrate1 != null">
+        flrate1 = #{flrate1,jdbcType=DECIMAL},
+      </if>
+      <if test="flrate2 != null">
+        flrate2 = #{flrate2,jdbcType=DECIMAL},
+      </if>
+      <if test="flrate3 != null">
+        flrate3 = #{flrate3,jdbcType=DECIMAL},
+      </if>
+      <if test="txlimit != null">
+        txlimit = #{txlimit,jdbcType=INTEGER},
+      </if>
+      <if test="stat != null">
+        stat = #{stat,jdbcType=INTEGER},
+      </if>
+      <if test="adimg != null">
+        adimg = #{adimg,jdbcType=VARCHAR},
+      </if>
+      <if test="adtext != null">
+        adtext = #{adtext,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="beforeTime != null">
+        before_time = #{beforeTime,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adorgroup.babycar.mqtt.domain.MallAgentSet">
+    update mall_agent_set
+    set step = #{step,jdbcType=INTEGER},
+      flrate1 = #{flrate1,jdbcType=DECIMAL},
+      flrate2 = #{flrate2,jdbcType=DECIMAL},
+      flrate3 = #{flrate3,jdbcType=DECIMAL},
+      txlimit = #{txlimit,jdbcType=INTEGER},
+      stat = #{stat,jdbcType=INTEGER},
+      adimg = #{adimg,jdbcType=VARCHAR},
+      adtext = #{adtext,jdbcType=VARCHAR},
+      time = #{time,jdbcType=INTEGER},
+      before_time = #{beforeTime,jdbcType=INTEGER},
+      unit_price = #{unitPrice,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
