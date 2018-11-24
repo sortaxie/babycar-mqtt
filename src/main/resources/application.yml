@@ -8,7 +8,7 @@ adorgroup:
     default:
       topic: babycar
     password: 6a311552210eff6d035bf7fe17fa3b6f
-    url: tcp://datanode2.com:1883
+    url: tcp://www.ie-goal.cn:1883
     username: adorgroup
     productId: d0b75ae9f72a9665
 
@@ -17,7 +17,7 @@ spring:
   application:
     name: adorgroup-babycar-mqtt
   datasource:
-    url: jdbc:mysql://139.196.208.236/ngwx?useSSL=false&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://139.196.208.236/babycar?useSSL=false&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: iegoal123456
@@ -62,7 +62,7 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 
 logging:
-  path: G:/var/logs/babycar_mqtt
+  path: E:/var/logs/babycar_mqtt
 #  level:
 #    com:
 #      adorgroup:

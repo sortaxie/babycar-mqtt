@@ -17,7 +17,7 @@ spring:
   application:
     name: adorgroup-babycar-mqtt
   datasource:
-    url: jdbc:mysql://139.196.208.236/ngwx?useSSL=false&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://139.196.208.236/babycar?useSSL=false&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: iegoal123456

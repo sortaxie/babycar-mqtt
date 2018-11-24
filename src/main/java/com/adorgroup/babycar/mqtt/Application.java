@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //@EnableAutoConfiguration
 @SpringBootApplication
-@MapperScan("com.sorta.fsn.openauth.dao")
+@MapperScan("com.adorgroup.babycar.mqtt.dao")
 public class Application {
 
     public static void main(String[] args) throws Exception {

@@ -13,14 +13,14 @@ test mqtt11
 
 <script>
     // Create a client instance
-    client = new Paho.MQTT.Client("www.ie-goal.cn",Number(8083),"app1");
+    client = new Paho.MQTT.Client("www.ie-goal.cn",Number(443),"app1");
 
     // set callback handlers
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
 
     // connect the client
-    client.connect({onSuccess:onConnect,userName:"admin",password:"password",useSSL:false});
+    client.connect({onSuccess:onConnect,userName:"adorgroup",password:"6a311552210eff6d035bf7fe17fa3b6f",useSSL:true});
 
 
     // called when the client connects

@@ -122,17 +122,17 @@ public class MqttReceiveConfig {
                         MessageDto messageDto =  mapper.readValue(data, MessageDto.class);
                         if(CommandType.RETURN_CAR.equals(messageDto.getType())) {
                              //闭锁 还车上报
-                          ThreadPoolManager.newInstance().addExecuteTask(new ClearingTask(messageDto,deviceItemOrderService,productId,mqttGateway));
+                          //ThreadPoolManager.newInstance().addExecuteTask(new ClearingTask(messageDto,deviceItemOrderService,productId,mqttGateway));
                         }else if(CommandType.ONLINE.equals(messageDto.getType())){
                             //设备上线
-                            ThreadPoolManager.newInstance().addExecuteTask((new ChangeDeviceStatTask(messageDto.getOid(), DeviceStat.ONLINE.ordinal(),deviceService)));
+                           // ThreadPoolManager.newInstance().addExecuteTask((new ChangeDeviceStatTask(messageDto.getOid(), DeviceStat.ONLINE.ordinal(),deviceService)));
                         }
                     } catch (IOException e) {
                         log.error("out errer:",e);
                     }
                 }else if(!topic.equals("off/"+productId+"/#")&&topic.indexOf("off/"+productId+"/")>-1){
                     //设备下线
-                    ThreadPoolManager.newInstance().addExecuteTask(new ChangeDeviceStatTask(message.getPayload().toString(),DeviceStat.OFFLINE.ordinal(),deviceService));
+                    //ThreadPoolManager.newInstance().addExecuteTask(new ChangeDeviceStatTask(message.getPayload().toString(),DeviceStat.OFFLINE.ordinal(),deviceService));
 
                 }
             }
