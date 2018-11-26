@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adorgroup.babycar.mqtt.dao.StationMapper">
+  <resultMap id="BaseResultMap" type="com.adorgroup.babycar.mqtt.domain.Station">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="wxdid" jdbcType="VARCHAR" property="wxdid" />
+    <result column="qrticket" jdbcType="VARCHAR" property="qrticket" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="intime" jdbcType="TIMESTAMP" property="intime" />
+    <result column="worktime" jdbcType="TIMESTAMP" property="worktime" />
+    <result column="starttime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="exptime" jdbcType="TIMESTAMP" property="exptime" />
+    <result column="mall_id" jdbcType="INTEGER" property="mallId" />
+    <result column="useid" jdbcType="INTEGER" property="useid" />
+    <result column="qrcode" jdbcType="VARCHAR" property="qrcode" />
+    <result column="noid" jdbcType="VARCHAR" property="noid" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="skstat" jdbcType="INTEGER" property="skstat" />
+    <result column="gprs_lng" jdbcType="DOUBLE" property="gprsLng" />
+    <result column="gprs_lat" jdbcType="DOUBLE" property="gprsLat" />
+    <result column="baidu_lng" jdbcType="DOUBLE" property="baiduLng" />
+    <result column="baidu_lat" jdbcType="DOUBLE" property="baiduLat" />
+    <result column="tencent_lng" jdbcType="DOUBLE" property="tencentLng" />
+    <result column="tencent_lat" jdbcType="DOUBLE" property="tencentLat" />
+    <result column="frn_id" jdbcType="INTEGER" property="frnId" />
+    <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
+    <result column="price_interval" jdbcType="DOUBLE" property="priceInterval" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sn, wxdid, qrticket, remark, status, intime, worktime, starttime, exptime, mall_id, 
+    useid, qrcode, noid, address, pname, skstat, gprs_lng, gprs_lat, baidu_lng, baidu_lat, 
+    tencent_lng, tencent_lat, frn_id, unit_price, price_interval
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dvc_station
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dvc_station
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.adorgroup.babycar.mqtt.domain.Station">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into dvc_station (sn, wxdid, qrticket, 
+      remark, status, intime, 
+      worktime, starttime, exptime, 
+      mall_id, useid, qrcode, 
+      noid, address, pname, 
+      skstat, gprs_lng, gprs_lat, 
+      baidu_lng, baidu_lat, tencent_lng, 
+      tencent_lat, frn_id, unit_price, 
+      price_interval)
+    values (#{sn,jdbcType=VARCHAR}, #{wxdid,jdbcType=VARCHAR}, #{qrticket,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{intime,jdbcType=TIMESTAMP}, 
+      #{worktime,jdbcType=TIMESTAMP}, #{starttime,jdbcType=TIMESTAMP}, #{exptime,jdbcType=TIMESTAMP}, 
+      #{mallId,jdbcType=INTEGER}, #{useid,jdbcType=INTEGER}, #{qrcode,jdbcType=VARCHAR}, 
+      #{noid,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, 
+      #{skstat,jdbcType=INTEGER}, #{gprsLng,jdbcType=DOUBLE}, #{gprsLat,jdbcType=DOUBLE}, 
+      #{baiduLng,jdbcType=DOUBLE}, #{baiduLat,jdbcType=DOUBLE}, #{tencentLng,jdbcType=DOUBLE}, 
+      #{tencentLat,jdbcType=DOUBLE}, #{frnId,jdbcType=INTEGER}, #{unitPrice,jdbcType=DOUBLE}, 
+      #{priceInterval,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adorgroup.babycar.mqtt.domain.Station">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into dvc_station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="wxdid != null">
+        wxdid,
+      </if>
+      <if test="qrticket != null">
+        qrticket,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="intime != null">
+        intime,
+      </if>
+      <if test="worktime != null">
+        worktime,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="exptime != null">
+        exptime,
+      </if>
+      <if test="mallId != null">
+        mall_id,
+      </if>
+      <if test="useid != null">
+        useid,
+      </if>
+      <if test="qrcode != null">
+        qrcode,
+      </if>
+      <if test="noid != null">
+        noid,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="pname != null">
+        pname,
+      </if>
+      <if test="skstat != null">
+        skstat,
+      </if>
+      <if test="gprsLng != null">
+        gprs_lng,
+      </if>
+      <if test="gprsLat != null">
+        gprs_lat,
+      </if>
+      <if test="baiduLng != null">
+        baidu_lng,
+      </if>
+      <if test="baiduLat != null">
+        baidu_lat,
+      </if>
+      <if test="tencentLng != null">
+        tencent_lng,
+      </if>
+      <if test="tencentLat != null">
+        tencent_lat,
+      </if>
+      <if test="frnId != null">
+        frn_id,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="priceInterval != null">
+        price_interval,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="wxdid != null">
+        #{wxdid,jdbcType=VARCHAR},
+      </if>
+      <if test="qrticket != null">
+        #{qrticket,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="intime != null">
+        #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="worktime != null">
+        #{worktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exptime != null">
+        #{exptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mallId != null">
+        #{mallId,jdbcType=INTEGER},
+      </if>
+      <if test="useid != null">
+        #{useid,jdbcType=INTEGER},
+      </if>
+      <if test="qrcode != null">
+        #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="noid != null">
+        #{noid,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null">
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="skstat != null">
+        #{skstat,jdbcType=INTEGER},
+      </if>
+      <if test="gprsLng != null">
+        #{gprsLng,jdbcType=DOUBLE},
+      </if>
+      <if test="gprsLat != null">
+        #{gprsLat,jdbcType=DOUBLE},
+      </if>
+      <if test="baiduLng != null">
+        #{baiduLng,jdbcType=DOUBLE},
+      </if>
+      <if test="baiduLat != null">
+        #{baiduLat,jdbcType=DOUBLE},
+      </if>
+      <if test="tencentLng != null">
+        #{tencentLng,jdbcType=DOUBLE},
+      </if>
+      <if test="tencentLat != null">
+        #{tencentLat,jdbcType=DOUBLE},
+      </if>
+      <if test="frnId != null">
+        #{frnId,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="priceInterval != null">
+        #{priceInterval,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adorgroup.babycar.mqtt.domain.Station">
+    update dvc_station
+    <set>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="wxdid != null">
+        wxdid = #{wxdid,jdbcType=VARCHAR},
+      </if>
+      <if test="qrticket != null">
+        qrticket = #{qrticket,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="intime != null">
+        intime = #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="worktime != null">
+        worktime = #{worktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exptime != null">
+        exptime = #{exptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mallId != null">
+        mall_id = #{mallId,jdbcType=INTEGER},
+      </if>
+      <if test="useid != null">
+        useid = #{useid,jdbcType=INTEGER},
+      </if>
+      <if test="qrcode != null">
+        qrcode = #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="noid != null">
+        noid = #{noid,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null">
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="skstat != null">
+        skstat = #{skstat,jdbcType=INTEGER},
+      </if>
+      <if test="gprsLng != null">
+        gprs_lng = #{gprsLng,jdbcType=DOUBLE},
+      </if>
+      <if test="gprsLat != null">
+        gprs_lat = #{gprsLat,jdbcType=DOUBLE},
+      </if>
+      <if test="baiduLng != null">
+        baidu_lng = #{baiduLng,jdbcType=DOUBLE},
+      </if>
+      <if test="baiduLat != null">
+        baidu_lat = #{baiduLat,jdbcType=DOUBLE},
+      </if>
+      <if test="tencentLng != null">
+        tencent_lng = #{tencentLng,jdbcType=DOUBLE},
+      </if>
+      <if test="tencentLat != null">
+        tencent_lat = #{tencentLat,jdbcType=DOUBLE},
+      </if>
+      <if test="frnId != null">
+        frn_id = #{frnId,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="priceInterval != null">
+        price_interval = #{priceInterval,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adorgroup.babycar.mqtt.domain.Station">
+    update dvc_station
+    set sn = #{sn,jdbcType=VARCHAR},
+      wxdid = #{wxdid,jdbcType=VARCHAR},
+      qrticket = #{qrticket,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      intime = #{intime,jdbcType=TIMESTAMP},
+      worktime = #{worktime,jdbcType=TIMESTAMP},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      exptime = #{exptime,jdbcType=TIMESTAMP},
+      mall_id = #{mallId,jdbcType=INTEGER},
+      useid = #{useid,jdbcType=INTEGER},
+      qrcode = #{qrcode,jdbcType=VARCHAR},
+      noid = #{noid,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      pname = #{pname,jdbcType=VARCHAR},
+      skstat = #{skstat,jdbcType=INTEGER},
+      gprs_lng = #{gprsLng,jdbcType=DOUBLE},
+      gprs_lat = #{gprsLat,jdbcType=DOUBLE},
+      baidu_lng = #{baiduLng,jdbcType=DOUBLE},
+      baidu_lat = #{baiduLat,jdbcType=DOUBLE},
+      tencent_lng = #{tencentLng,jdbcType=DOUBLE},
+      tencent_lat = #{tencentLat,jdbcType=DOUBLE},
+      frn_id = #{frnId,jdbcType=INTEGER},
+      unit_price = #{unitPrice,jdbcType=DOUBLE},
+      price_interval = #{priceInterval,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

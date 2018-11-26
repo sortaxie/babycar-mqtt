@@ -13,6 +13,10 @@ adorgroup:
     productId: d0b75ae9f72a9665
 
 
+framework:
+  secrety:
+    secretKey : 94a7cbbf8511a288d22d4cf8705d61d0
+
 spring:
   application:
     name: adorgroup-babycar-mqtt

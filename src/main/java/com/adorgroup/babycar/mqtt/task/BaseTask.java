@@ -1,6 +1,6 @@
 package com.adorgroup.babycar.mqtt.task;
 
-import com.adorgroup.babycar.mqtt.MessageDto;
+import com.adorgroup.framework.common.MessageDto;
 
 public class BaseTask extends Thread {
 

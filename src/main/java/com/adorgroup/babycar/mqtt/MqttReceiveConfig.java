@@ -1,13 +1,13 @@
 package com.adorgroup.babycar.mqtt;
 
 import com.adorgroup.babycar.mqtt.common.CommandType;
-import com.adorgroup.babycar.mqtt.domain.enums.DeviceStat;
-import com.adorgroup.babycar.mqtt.service.DeviceItemOrderService;
-import com.adorgroup.babycar.mqtt.service.DeviceService;
-import com.adorgroup.babycar.mqtt.task.ChangeDeviceStatTask;
+import com.adorgroup.babycar.mqtt.domain.enums.StationStatus;
+import com.adorgroup.babycar.mqtt.service.OrderService;
+import com.adorgroup.babycar.mqtt.service.StationService;
+import com.adorgroup.babycar.mqtt.task.ChangeStationStatusTask;
 import com.adorgroup.babycar.mqtt.task.ClearingTask;
 import com.adorgroup.babycar.mqtt.util.ThreadPoolManager;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.adorgroup.framework.common.MessageDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.slf4j.Logger;
@@ -31,8 +31,6 @@ import org.springframework.messaging.MessagingException;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Configuration
 @IntegrationComponentScan
@@ -58,9 +56,9 @@ public class MqttReceiveConfig {
     private static  int count = 0;
 
     @Autowired
-    private DeviceItemOrderService deviceItemOrderService;
+    private OrderService orderService;
     @Autowired
-    private DeviceService deviceService;
+    private StationService stationService;
     @Bean
     public MqttConnectOptions getMqttConnectOptions(){
 
@@ -122,18 +120,17 @@ public class MqttReceiveConfig {
                         MessageDto messageDto =  mapper.readValue(data, MessageDto.class);
                         if(CommandType.RETURN_CAR.equals(messageDto.getType())) {
                              //闭锁 还车上报
-                          //ThreadPoolManager.newInstance().addExecuteTask(new ClearingTask(messageDto,deviceItemOrderService,productId,mqttGateway));
+                          ThreadPoolManager.newInstance().addExecuteTask(new ClearingTask(messageDto,orderService,productId,mqttGateway));
                         }else if(CommandType.ONLINE.equals(messageDto.getType())){
                             //设备上线
-                           // ThreadPoolManager.newInstance().addExecuteTask((new ChangeDeviceStatTask(messageDto.getOid(), DeviceStat.ONLINE.ordinal(),deviceService)));
+                            ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(messageDto.getOid(), StationStatus.ONLINE.ordinal(),stationService)));
                         }
                     } catch (IOException e) {
                         log.error("out errer:",e);
                     }
                 }else if(!topic.equals("off/"+productId+"/#")&&topic.indexOf("off/"+productId+"/")>-1){
                     //设备下线
-                    //ThreadPoolManager.newInstance().addExecuteTask(new ChangeDeviceStatTask(message.getPayload().toString(),DeviceStat.OFFLINE.ordinal(),deviceService));
-
+                    ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(message.getPayload().toString(), StationStatus.OFFLINE.ordinal(),stationService)));
                 }
             }
         };

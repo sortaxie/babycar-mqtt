@@ -1,6 +1,6 @@
 package com.adorgroup.babycar.mqtt.domain.enums;
 
-public enum DeviceStat {
+public enum StationStatus {
 
     NOACTIVATE,OFFLINE,ONLINE,LOCKED
 

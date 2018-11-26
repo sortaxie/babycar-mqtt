@@ -1,8 +1,8 @@
 package com.adorgroup.babycar.mqtt.task;
 
-import com.adorgroup.babycar.mqtt.MessageDto;
 import com.adorgroup.babycar.mqtt.MqttGateway;
-import com.adorgroup.babycar.mqtt.service.DeviceItemOrderService;
+import com.adorgroup.babycar.mqtt.service.OrderService;
+import com.adorgroup.framework.common.MessageDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 
 public class ClearingTask extends BaseTask {
     private static Logger log = LoggerFactory.getLogger(ClearingTask.class);
-    private DeviceItemOrderService deviceItemOrderService;
+    private OrderService orderService;
     private String productId;
     private MqttGateway mqttGateway;
-    public ClearingTask(MessageDto messageDto,DeviceItemOrderService deviceItemOrderService,String productId,MqttGateway mqttGateway) {
+    public ClearingTask(MessageDto messageDto, OrderService orderService, String productId, MqttGateway mqttGateway) {
         super(messageDto);
-        this.deviceItemOrderService = deviceItemOrderService;
+        this.orderService = orderService;
         this.productId = productId;
         this.mqttGateway = mqttGateway;
     }
@@ -39,7 +39,7 @@ public class ClearingTask extends BaseTask {
         } else if (messageDto.getKr8() != null) {
             messageDto.setKr(messageDto.getKr8());
         }
-        if (deviceItemOrderService.clearingDeviceItemOrder(messageDto.getKr())) {
+        if (orderService.clearingOrder(messageDto.getKr())) {
             String result = null;
             try {
                 ObjectMapper mapper = new ObjectMapper();

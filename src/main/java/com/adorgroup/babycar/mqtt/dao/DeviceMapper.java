@@ -1,18 +1,15 @@
 package com.adorgroup.babycar.mqtt.dao;
 
 import com.adorgroup.babycar.mqtt.domain.Device;
-import com.adorgroup.babycar.mqtt.domain.DeviceKey;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface DeviceMapper {
-    int deleteByPrimaryKey(DeviceKey key);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Device record);
 
     int insertSelective(Device record);
 
-    Device selectByPrimaryKey(DeviceKey key);
+    Device selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Device record);
 

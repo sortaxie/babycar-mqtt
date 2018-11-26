@@ -1,9 +1,13 @@
 package com.adorgroup.babycar.mqtt.controller;
 
-import com.adorgroup.babycar.mqtt.MessageDto;
 import com.adorgroup.babycar.mqtt.MqttGateway;
+import com.adorgroup.babycar.mqtt.MqttReceiveConfig;
 import com.adorgroup.babycar.mqtt.util.CRCUtil;
 import com.adorgroup.babycar.mqtt.util.JacksonUtil;
+import com.adorgroup.framework.common.MessageDto;
+import com.adorgroup.framework.common.pojo.BaseResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("send")
 public class SendController {
 
+//    private static Logger log = LoggerFactory.getLogger(SendController.class);
+
     @Autowired
     private MqttGateway mqttGateway;
 
@@ -22,14 +28,15 @@ public class SendController {
     private String productId;
 
     @PostMapping("sendToLock")
-    public String  sendToLock(@RequestBody MessageDto messageDto){
+    public BaseResponse sendToLock(@RequestBody MessageDto messageDto){
+        BaseResponse response = new BaseResponse();
         String json = JacksonUtil.toJson(messageDto);
-        String crc =Integer.toHexString(CRCUtil.CRC16Ccitt(json.replace("}",",").getBytes())) ;
+        String crc = Integer.toHexString(CRCUtil.CRC16Ccitt(json.replace("}", ",").getBytes()));
         messageDto.setCrc(crc);
         String sendJson = JacksonUtil.toJson(messageDto);
-        mqttGateway.sendToMqtt(sendJson,"in/"+productId+"/"+messageDto.getOid());
+        mqttGateway.sendToMqtt(sendJson, "in/" + productId + "/" + messageDto.getOid());
+        return response;
 
-        return "ok";
     }
 
 }

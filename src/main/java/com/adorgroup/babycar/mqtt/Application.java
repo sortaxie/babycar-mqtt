@@ -4,6 +4,7 @@ package com.adorgroup.babycar.mqtt;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author benju.xie
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //@EnableAutoConfiguration
 @SpringBootApplication
+@ComponentScan(basePackages = {"com.adorgroup.framework.core","com.adorgroup.babycar.mqtt"})
 @MapperScan("com.adorgroup.babycar.mqtt.dao")
 public class Application {
 

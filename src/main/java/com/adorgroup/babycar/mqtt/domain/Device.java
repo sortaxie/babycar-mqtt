@@ -2,234 +2,104 @@ package com.adorgroup.babycar.mqtt.domain;
 
 import java.util.Date;
 
-public class Device extends DeviceKey {
-    private Integer nid;
+public class Device {
+    private Integer id;
 
-    private String sn;
+    private String rfid;
 
-    private String wxdid;
+    private String productId;
 
-    private String qrticket;
+    private Integer frnId;
 
-    private String remark;
+    private Double unitPrice;
 
-    private Integer stat;
+    private Double priceInterval;
 
-    private Date intime;
+    private String stationId;
 
-    private Date worktime;
+    private Date createTime;
 
-    private Date starttime;
+    private Date modifyTime;
 
-    private Date exptime;
+    private Integer status;
 
-    private Integer mallId;
-
-    private Integer useid;
-
-    private String qrcode;
-
-    private String noid;
-
-    private String address;
-
-    private String pname;
-
-    private Integer skstat;
-
-    private Double gprsLng;
-
-    private Double gprsLat;
-
-    private Double baiduLng;
-
-    private Double baiduLat;
-
-    private Double tencentLng;
-
-    private Double tencentLat;
-
-    public Integer getNid() {
-        return nid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNid(Integer nid) {
-        this.nid = nid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getSn() {
-        return sn;
+    public String getRfid() {
+        return rfid;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn == null ? null : sn.trim();
+    public void setRfid(String rfid) {
+        this.rfid = rfid == null ? null : rfid.trim();
     }
 
-    public String getWxdid() {
-        return wxdid;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setWxdid(String wxdid) {
-        this.wxdid = wxdid == null ? null : wxdid.trim();
+    public void setProductId(String productId) {
+        this.productId = productId == null ? null : productId.trim();
     }
 
-    public String getQrticket() {
-        return qrticket;
+    public Integer getFrnId() {
+        return frnId;
     }
 
-    public void setQrticket(String qrticket) {
-        this.qrticket = qrticket == null ? null : qrticket.trim();
+    public void setFrnId(Integer frnId) {
+        this.frnId = frnId;
     }
 
-    public String getRemark() {
-        return remark;
+    public Double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    public Integer getStat() {
-        return stat;
+    public Double getPriceInterval() {
+        return priceInterval;
     }
 
-    public void setStat(Integer stat) {
-        this.stat = stat;
+    public void setPriceInterval(Double priceInterval) {
+        this.priceInterval = priceInterval;
     }
 
-    public Date getIntime() {
-        return intime;
+    public String getStationId() {
+        return stationId;
     }
 
-    public void setIntime(Date intime) {
-        this.intime = intime;
+    public void setStationId(String stationId) {
+        this.stationId = stationId == null ? null : stationId.trim();
     }
 
-    public Date getWorktime() {
-        return worktime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setWorktime(Date worktime) {
-        this.worktime = worktime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getStarttime() {
-        return starttime;
+    public Date getModifyTime() {
+        return modifyTime;
     }
 
-    public void setStarttime(Date starttime) {
-        this.starttime = starttime;
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
-    public Date getExptime() {
-        return exptime;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setExptime(Date exptime) {
-        this.exptime = exptime;
-    }
-
-    public Integer getMallId() {
-        return mallId;
-    }
-
-    public void setMallId(Integer mallId) {
-        this.mallId = mallId;
-    }
-
-    public Integer getUseid() {
-        return useid;
-    }
-
-    public void setUseid(Integer useid) {
-        this.useid = useid;
-    }
-
-    public String getQrcode() {
-        return qrcode;
-    }
-
-    public void setQrcode(String qrcode) {
-        this.qrcode = qrcode == null ? null : qrcode.trim();
-    }
-
-    public String getNoid() {
-        return noid;
-    }
-
-    public void setNoid(String noid) {
-        this.noid = noid == null ? null : noid.trim();
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
-
-    public String getPname() {
-        return pname;
-    }
-
-    public void setPname(String pname) {
-        this.pname = pname == null ? null : pname.trim();
-    }
-
-    public Integer getSkstat() {
-        return skstat;
-    }
-
-    public void setSkstat(Integer skstat) {
-        this.skstat = skstat;
-    }
-
-    public Double getGprsLng() {
-        return gprsLng;
-    }
-
-    public void setGprsLng(Double gprsLng) {
-        this.gprsLng = gprsLng;
-    }
-
-    public Double getGprsLat() {
-        return gprsLat;
-    }
-
-    public void setGprsLat(Double gprsLat) {
-        this.gprsLat = gprsLat;
-    }
-
-    public Double getBaiduLng() {
-        return baiduLng;
-    }
-
-    public void setBaiduLng(Double baiduLng) {
-        this.baiduLng = baiduLng;
-    }
-
-    public Double getBaiduLat() {
-        return baiduLat;
-    }
-
-    public void setBaiduLat(Double baiduLat) {
-        this.baiduLat = baiduLat;
-    }
-
-    public Double getTencentLng() {
-        return tencentLng;
-    }
-
-    public void setTencentLng(Double tencentLng) {
-        this.tencentLng = tencentLng;
-    }
-
-    public Double getTencentLat() {
-        return tencentLat;
-    }
-
-    public void setTencentLat(Double tencentLat) {
-        this.tencentLat = tencentLat;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
