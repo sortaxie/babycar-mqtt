@@ -67,10 +67,10 @@ mybatis:
 
 logging:
   path: E:/var/logs/babycar_mqtt
-#  level:
-#    com:
-#      adorgroup:
-#        babycar:
-#          mqtt:
-#            dao: debug
+  level:
+    com:
+      adorgroup:
+        babycar:
+          mqtt:
+            dao: debug
 

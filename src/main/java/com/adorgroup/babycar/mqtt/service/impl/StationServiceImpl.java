@@ -17,7 +17,7 @@ public class StationServiceImpl implements StationService {
     @Override
     public void changeStationStat(String stationId, int status) {
         Station station  = stationMapper.selectByPrimaryKey(stationId);
-        if(station.getStatus()!= StationStatus.LOCKED.ordinal()) {
+        if(station!=null&&station.getStatus()!= StationStatus.LOCKED.ordinal()) {
             if (station.getStatus() == StationStatus.NOACTIVATE.ordinal()) {
                 //如果是未激活状态，新增激活时间
                 station.setWorktime(new Date());

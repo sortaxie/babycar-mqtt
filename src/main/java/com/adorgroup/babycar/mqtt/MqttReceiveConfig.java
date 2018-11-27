@@ -5,7 +5,8 @@ import com.adorgroup.babycar.mqtt.domain.enums.StationStatus;
 import com.adorgroup.babycar.mqtt.service.OrderService;
 import com.adorgroup.babycar.mqtt.service.StationService;
 import com.adorgroup.babycar.mqtt.task.ChangeStationStatusTask;
-import com.adorgroup.babycar.mqtt.task.ClearingTask;
+import com.adorgroup.babycar.mqtt.task.LockTask;
+import com.adorgroup.babycar.mqtt.task.UnLockTask;
 import com.adorgroup.babycar.mqtt.util.ThreadPoolManager;
 import com.adorgroup.framework.common.MessageDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,8 +53,6 @@ public class MqttReceiveConfig {
     private int completionTimeout ;   //连接超时
     @Value("${adorgroup.mqtt.productId}")
     private String productId;
-
-    private static  int count = 0;
 
     @Autowired
     private OrderService orderService;
@@ -113,17 +112,19 @@ public class MqttReceiveConfig {
                     //log.info(topic+":"+message.getPayload().toString());
                 }else if(topic.indexOf("out/"+productId+"/")>-1){
                     //锁上报消息，下发给设备
-
                     String data =  message.getPayload().toString();
                     ObjectMapper mapper = new ObjectMapper();
                     try {
                         MessageDto messageDto =  mapper.readValue(data, MessageDto.class);
-                        if(CommandType.RETURN_CAR.equals(messageDto.getType())) {
+                        if(CommandType.LOCK.equals(messageDto.getType())) {
                              //闭锁 还车上报
-                          ThreadPoolManager.newInstance().addExecuteTask(new ClearingTask(messageDto,orderService,productId,mqttGateway));
+                          ThreadPoolManager.newInstance().addExecuteTask(new LockTask(messageDto,orderService,productId,mqttGateway));
                         }else if(CommandType.ONLINE.equals(messageDto.getType())){
                             //设备上线
                             ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(messageDto.getOid(), StationStatus.ONLINE.ordinal(),stationService)));
+                        }else if(CommandType.UNLOCK.equals(messageDto.getType())){
+                            // 解锁 借车
+                            ThreadPoolManager.newInstance().addExecuteTask(new UnLockTask(messageDto,orderService));
                         }
                     } catch (IOException e) {
                         log.error("out errer:",e);

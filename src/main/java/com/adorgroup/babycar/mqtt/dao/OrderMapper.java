@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 public interface OrderMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -18,6 +20,9 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-    @Select("select * from dvc_order o where o.rfid =#{rfid} and end_time is null")
-    Order selectByRfid(@Param("rfid") String rfid);
+    @Select("select * from dvc_order o where o.rfid =#{rfid} and o.status = #{status}")
+    Order selectByRfid(@Param("rfid") String rfid,@Param("status")int status);
+
+    @Select("select * from dvc_order o where o.status =#{status}")
+    List<Order> selectByStatus(@Param("status") int status);
 }

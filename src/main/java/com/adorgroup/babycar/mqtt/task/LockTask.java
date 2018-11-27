@@ -2,18 +2,22 @@ package com.adorgroup.babycar.mqtt.task;
 
 import com.adorgroup.babycar.mqtt.MqttGateway;
 import com.adorgroup.babycar.mqtt.service.OrderService;
+import com.adorgroup.babycar.mqtt.util.MessageDtoUtil;
 import com.adorgroup.framework.common.MessageDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClearingTask extends BaseTask {
-    private static Logger log = LoggerFactory.getLogger(ClearingTask.class);
+/**
+ *  闭锁任务
+ */
+public class LockTask extends BaseTask {
+    private static Logger log = LoggerFactory.getLogger(LockTask.class);
     private OrderService orderService;
     private String productId;
     private MqttGateway mqttGateway;
-    public ClearingTask(MessageDto messageDto, OrderService orderService, String productId, MqttGateway mqttGateway) {
+    public LockTask(MessageDto messageDto, OrderService orderService, String productId, MqttGateway mqttGateway) {
         super(messageDto);
         this.orderService = orderService;
         this.productId = productId;
@@ -22,23 +26,8 @@ public class ClearingTask extends BaseTask {
 
 
     public  void  run() {
-        if (messageDto.getKr1() != null) {
-            messageDto.setKr(messageDto.getKr1());
-        } else if (messageDto.getKr2() != null) {
-            messageDto.setKr(messageDto.getKr2());
-        } else if (messageDto.getKr3() != null) {
-            messageDto.setKr(messageDto.getKr3());
-        } else if (messageDto.getKr4() != null) {
-            messageDto.setKr(messageDto.getKr4());
-        } else if (messageDto.getKr5() != null) {
-            messageDto.setKr(messageDto.getKr5());
-        } else if (messageDto.getKr6() != null) {
-            messageDto.setKr(messageDto.getKr6());
-        } else if (messageDto.getKr7() != null) {
-            messageDto.setKr(messageDto.getKr7());
-        } else if (messageDto.getKr8() != null) {
-            messageDto.setKr(messageDto.getKr8());
-        }
+
+        MessageDtoUtil.setKrValue(messageDto);
         if (orderService.clearingOrder(messageDto.getKr())) {
             String result = null;
             try {
@@ -52,7 +41,7 @@ public class ClearingTask extends BaseTask {
             mqttGateway.sendToMqtt(result, sendTopic);
 
         }else{
-            log.error("return car error rfid:"+messageDto.getKr() +" deviceId:"+messageDto.getOid());
+            log.error("return car error rfid:"+messageDto.getKr() +" stationId:"+messageDto.getOid());
         }
 
     }

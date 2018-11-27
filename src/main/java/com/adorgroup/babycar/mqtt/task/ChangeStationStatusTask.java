@@ -4,16 +4,16 @@ import com.adorgroup.babycar.mqtt.service.StationService;
 
 public class ChangeStationStatusTask extends Thread {
     private StationService stationService;
-    private String deviceId;
+    private String stationId;
     private int status;
 
     public ChangeStationStatusTask(String stationId,int status, StationService stationService) {
-        this.deviceId = deviceId;
+        this.stationId = stationId;
         this.stationService = stationService;
         this.status = status;
     }
     public void run(){
-        stationService.changeStationStat(deviceId,status);
+        stationService.changeStationStat(stationId,status);
     }
 
 

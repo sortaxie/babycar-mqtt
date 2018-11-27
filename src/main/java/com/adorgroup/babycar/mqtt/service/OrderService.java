@@ -7,4 +7,11 @@ public interface OrderService {
      * @return
      */
     boolean clearingOrder(String rfid);
+
+    /**
+     * 车辆解锁
+     * @param rfid
+     * @return
+     */
+    boolean unlock(String rfid);
 }

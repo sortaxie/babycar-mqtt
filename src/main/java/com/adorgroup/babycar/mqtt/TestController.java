@@ -11,9 +11,6 @@ public class TestController {
     @Autowired
     private MqttGateway mqttGateway;
 
-    @Autowired
-    private DeviceItemOrderService  deviceItemOrderService;
-
     @RequestMapping("send")
     public void send(){
         for(int i=1;i<=20;i++) {
@@ -29,9 +26,5 @@ public class TestController {
 
     }
 
-    @RequestMapping("clearing")
-    public void clearing()
-    {
-        deviceItemOrderService.clearingDeviceItemOrder("4cd5");
-    }
+
 }
