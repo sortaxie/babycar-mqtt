@@ -30,6 +30,7 @@ public class LockTask extends BaseTask {
         MessageDtoUtil.setKrValue(messageDto);
         if (orderService.clearingOrder(messageDto.getKr())) {
             String result = null;
+            String rfid = messageDto.getKr();
             try {
                 messageDto.setKr(null);
                 ObjectMapper mapper = new ObjectMapper();
@@ -37,7 +38,7 @@ public class LockTask extends BaseTask {
             } catch (JsonProcessingException e) {
                 log.error("out errer:", e);
             }
-            String sendTopic = "lock/" + productId + "/" + messageDto.getKr();
+            String sendTopic = "lock/" + productId + "/" + rfid;
             log.info("topic:" + sendTopic);
             mqttGateway.sendToMqtt(result, sendTopic);
 
