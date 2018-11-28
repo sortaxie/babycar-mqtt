@@ -121,7 +121,7 @@ public class MqttReceiveConfig {
                           ThreadPoolManager.newInstance().addExecuteTask(new LockTask(messageDto,orderService,productId,mqttGateway));
                         }else if(CommandType.ONLINE.equals(messageDto.getType())){
                             //设备上线
-                            ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(messageDto.getOid(), StationStatus.ONLINE.ordinal(),stationService)));
+                            ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(messageDto.getOid(), StationStatus.ONLINE.getValue(),stationService)));
                         }else if(CommandType.UNLOCK.equals(messageDto.getType())){
                             // 解锁 借车
                             ThreadPoolManager.newInstance().addExecuteTask(new UnLockTask(messageDto,orderService));
@@ -131,7 +131,7 @@ public class MqttReceiveConfig {
                     }
                 }else if(!topic.equals("off/"+productId+"/#")&&topic.indexOf("off/"+productId+"/")>-1){
                     //设备下线
-                    ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(message.getPayload().toString(), StationStatus.OFFLINE.ordinal(),stationService)));
+                    ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(message.getPayload().toString(), StationStatus.OFFLINE.getValue(),stationService)));
                 }
             }
         };

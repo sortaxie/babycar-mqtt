@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @datetime 2018/10/29 16:59
  */
 
-//@EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.adorgroup.framework.core","com.adorgroup.babycar.mqtt"})
 @MapperScan("com.adorgroup.babycar.mqtt.dao")

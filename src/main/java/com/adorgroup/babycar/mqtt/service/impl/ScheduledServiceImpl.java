@@ -20,14 +20,14 @@ public class ScheduledServiceImpl {
     @Scheduled(fixedRate = 15000)
     public void invalidOrderJob() {
 
-        List<Order> list = orderMapper.selectByStatus(OrderStatus.PRE.ordinal());
+        List<Order> list = orderMapper.selectByStatus(OrderStatus.PRE.getValue());
 
         long now = System.currentTimeMillis();
         for (Order order : list) {
             if (order.getStartTime() != null && (now - order.getStartTime().getTime()) > 30000) {
                 Order updateOrder = new Order();
                 updateOrder.setId(order.getId());
-                updateOrder.setStatus(-1);
+                updateOrder.setStatus(OrderStatus.INVALID.getValue());
                 updateOrder.setEndTime(new Date());
                 orderMapper.updateByPrimaryKeySelective(order);
             }

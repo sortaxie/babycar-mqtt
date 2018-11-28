@@ -17,7 +17,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean clearingOrder(String rfid) {
-        Order order = orderMapper.selectByRfid(rfid,OrderStatus.START.ordinal());
+        Order order = orderMapper.selectByRfid(rfid,OrderStatus.START.getValue());
         if(order!=null){
             Date endTime = new Date();
             double deviceMoney = 0;//设备收费
@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
             updateOrder.setDeviceMoney(deviceMoney);
             updateOrder.setStationMoney(stationMoney);
             updateOrder.setMoneys(deviceMoney+stationMoney);
-            updateOrder.setStatus(OrderStatus.END.ordinal());
+            updateOrder.setStatus(OrderStatus.END.getValue());
             orderMapper.updateByPrimaryKeySelective(updateOrder);
             return true;
         }
@@ -42,11 +42,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean unlock(String rfid) {
-        Order order = orderMapper.selectByRfid(rfid,OrderStatus.PRE.ordinal());
+        Order order = orderMapper.selectByRfid(rfid,OrderStatus.PRE.getValue());
         if(order!=null){
             Order updateOrder = new Order();
             updateOrder.setId(order.getId());
-            updateOrder.setStatus(OrderStatus.START.ordinal());
+            updateOrder.setStatus(OrderStatus.START.getValue());
             orderMapper.updateByPrimaryKeySelective(updateOrder);
             return true;
         }
