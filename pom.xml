@@ -59,7 +59,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.adorgroup.framework.core</groupId>
+            <groupId>com.adorgroup.framework</groupId>
             <artifactId>framework-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

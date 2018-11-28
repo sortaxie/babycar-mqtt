@@ -77,8 +77,8 @@
     <orderEntry type="library" name="Maven: com.alibaba:druid-spring-boot-starter:1.1.5" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.1.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.16.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: com.adorgroup.framework.core:framework-core:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.adorgroup.framework.common:framework-common:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.adorgroup.framework:framework-core:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.adorgroup.framework:framework-common:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.6" level="project" />

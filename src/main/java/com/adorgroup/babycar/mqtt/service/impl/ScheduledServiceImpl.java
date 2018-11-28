@@ -19,9 +19,7 @@ public class ScheduledServiceImpl {
     //表示每隔15秒
     @Scheduled(fixedRate = 15000)
     public void invalidOrderJob() {
-
         List<Order> list = orderMapper.selectByStatus(OrderStatus.PRE.getValue());
-
         long now = System.currentTimeMillis();
         for (Order order : list) {
             if (order.getStartTime() != null && (now - order.getStartTime().getTime()) > 30000) {
