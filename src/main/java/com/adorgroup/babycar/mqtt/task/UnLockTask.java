@@ -22,18 +22,8 @@ public class UnLockTask extends BaseTask{
 
     public  void  run() {
         MessageDtoUtil.setKrValue(messageDto);
-        if(orderService.unlock(messageDto.getKr())){
-            String result = null;
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                result = mapper.writeValueAsString(messageDto);
-            } catch (JsonProcessingException e) {
-                log.error("unlock errer:", e);
-            }
-
-        }else {
-            log.error("unlock car error rfid:"+messageDto.getKr() +" stationId:"+messageDto.getOid());
+        if(!orderService.unlock(messageDto.getKr())) {
+            log.error("unlock car error rfid:" + messageDto.getKr() + " stationId:" + messageDto.getOid());
         }
-
     }
 }

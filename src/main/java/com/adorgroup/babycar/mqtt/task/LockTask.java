@@ -31,6 +31,7 @@ public class LockTask extends BaseTask {
         if (orderService.clearingOrder(messageDto.getKr())) {
             String result = null;
             try {
+                messageDto.setKr(null);
                 ObjectMapper mapper = new ObjectMapper();
                 result = mapper.writeValueAsString(messageDto);
             } catch (JsonProcessingException e) {
