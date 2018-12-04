@@ -1,6 +1,8 @@
 package com.adorgroup.babycar.mqtt.dao;
 
 import com.adorgroup.babycar.mqtt.domain.Device;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface DeviceMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +16,7 @@ public interface DeviceMapper {
     int updateByPrimaryKeySelective(Device record);
 
     int updateByPrimaryKey(Device record);
+
+    @Select("select * from dvc_device where rfid = #{rfid}")
+    Device selectByRfid(@Param("rfid") String rfid);
 }

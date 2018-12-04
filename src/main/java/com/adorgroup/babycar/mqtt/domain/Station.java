@@ -5,12 +5,6 @@ import java.util.Date;
 public class Station {
     private String id;
 
-    private String sn;
-
-    private String wxdid;
-
-    private String qrticket;
-
     private String remark;
 
     private Integer status;
@@ -19,23 +13,9 @@ public class Station {
 
     private Date worktime;
 
-    private Date starttime;
-
-    private Date exptime;
-
-    private Integer mallId;
-
-    private Integer useid;
-
-    private String qrcode;
-
-    private String noid;
-
     private String address;
 
-    private String pname;
-
-    private Integer skstat;
+    private String name;
 
     private Double gprsLng;
 
@@ -61,30 +41,6 @@ public class Station {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public String getSn() {
-        return sn;
-    }
-
-    public void setSn(String sn) {
-        this.sn = sn == null ? null : sn.trim();
-    }
-
-    public String getWxdid() {
-        return wxdid;
-    }
-
-    public void setWxdid(String wxdid) {
-        this.wxdid = wxdid == null ? null : wxdid.trim();
-    }
-
-    public String getQrticket() {
-        return qrticket;
-    }
-
-    public void setQrticket(String qrticket) {
-        this.qrticket = qrticket == null ? null : qrticket.trim();
     }
 
     public String getRemark() {
@@ -119,54 +75,6 @@ public class Station {
         this.worktime = worktime;
     }
 
-    public Date getStarttime() {
-        return starttime;
-    }
-
-    public void setStarttime(Date starttime) {
-        this.starttime = starttime;
-    }
-
-    public Date getExptime() {
-        return exptime;
-    }
-
-    public void setExptime(Date exptime) {
-        this.exptime = exptime;
-    }
-
-    public Integer getMallId() {
-        return mallId;
-    }
-
-    public void setMallId(Integer mallId) {
-        this.mallId = mallId;
-    }
-
-    public Integer getUseid() {
-        return useid;
-    }
-
-    public void setUseid(Integer useid) {
-        this.useid = useid;
-    }
-
-    public String getQrcode() {
-        return qrcode;
-    }
-
-    public void setQrcode(String qrcode) {
-        this.qrcode = qrcode == null ? null : qrcode.trim();
-    }
-
-    public String getNoid() {
-        return noid;
-    }
-
-    public void setNoid(String noid) {
-        this.noid = noid == null ? null : noid.trim();
-    }
-
     public String getAddress() {
         return address;
     }
@@ -175,20 +83,12 @@ public class Station {
         this.address = address == null ? null : address.trim();
     }
 
-    public String getPname() {
-        return pname;
+    public String getName() {
+        return name;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname == null ? null : pname.trim();
-    }
-
-    public Integer getSkstat() {
-        return skstat;
-    }
-
-    public void setSkstat(Integer skstat) {
-        this.skstat = skstat;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Double getGprsLng() {

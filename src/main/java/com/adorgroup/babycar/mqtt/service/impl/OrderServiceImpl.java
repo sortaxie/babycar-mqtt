@@ -1,6 +1,8 @@
 package com.adorgroup.babycar.mqtt.service.impl;
 
+import com.adorgroup.babycar.mqtt.dao.DeviceMapper;
 import com.adorgroup.babycar.mqtt.dao.OrderMapper;
+import com.adorgroup.babycar.mqtt.domain.Device;
 import com.adorgroup.babycar.mqtt.domain.Order;
 import com.adorgroup.babycar.mqtt.domain.enums.OrderStatus;
 import com.adorgroup.babycar.mqtt.service.OrderService;
@@ -14,9 +16,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private DeviceMapper deviceMapper;
 
     @Override
-    public boolean clearingOrder(String rfid) {
+    public boolean clearingOrder(String rfid,String stationId) {
         Order order = orderMapper.selectByRfid(rfid,OrderStatus.START.getValue());
         if(order!=null){
             Date endTime = new Date();
@@ -35,6 +39,12 @@ public class OrderServiceImpl implements OrderService {
             updateOrder.setMoneys(deviceMoney+stationMoney);
             updateOrder.setStatus(OrderStatus.END.getValue());
             orderMapper.updateByPrimaryKeySelective(updateOrder);
+            Device device = deviceMapper.selectByRfid(rfid);
+            device.setStationId(stationId);
+            Device updateDevice = new Device();
+            updateDevice.setId(device.getId());
+            updateDevice.setStationId(stationId);
+            deviceMapper.updateByPrimaryKeySelective(updateDevice);
             return true;
         }
         return false;

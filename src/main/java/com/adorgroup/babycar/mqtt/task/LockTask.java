@@ -24,11 +24,10 @@ public class LockTask extends BaseTask {
         this.mqttGateway = mqttGateway;
     }
 
-
     public  void  run() {
 
         MessageDtoUtil.setKrValue(messageDto);
-        if (orderService.clearingOrder(messageDto.getKr())) {
+        if (orderService.clearingOrder(messageDto.getKr(),messageDto.getOid())) {
             String result = null;
             String rfid = messageDto.getKr();
             try {
@@ -41,7 +40,6 @@ public class LockTask extends BaseTask {
             String sendTopic = "lock/" + productId + "/" + rfid;
             log.info("topic:" + sendTopic);
             mqttGateway.sendToMqtt(result, sendTopic);
-
         }else{
             log.error("return car error rfid:"+messageDto.getKr() +" stationId:"+messageDto.getOid());
         }
