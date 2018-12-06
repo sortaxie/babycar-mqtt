@@ -22,7 +22,7 @@ public class ScheduledServiceImpl {
         List<Order> list = orderMapper.selectByStatus(OrderStatus.PRE.getValue());
         long now = System.currentTimeMillis();
         for (Order order : list) {
-            if (order.getStartTime() != null && (now - order.getStartTime().getTime()) > 30000) {
+            if (order.getStartTime() != null && (now - order.getStartTime().getTime()) > 15000) {
                 Order updateOrder = new Order();
                 updateOrder.setId(order.getId());
                 updateOrder.setStatus(OrderStatus.INVALID.getValue());

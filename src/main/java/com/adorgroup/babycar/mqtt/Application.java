@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.adorgroup.framework.core","com.adorgroup.babycar.mqtt"})
 @MapperScan("com.adorgroup.babycar.mqtt.dao")
-//@EnableScheduling
+@EnableScheduling
 public class Application {
 
     public static void main(String[] args) throws Exception {

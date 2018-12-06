@@ -25,7 +25,6 @@ public class LockTask extends BaseTask {
     }
 
     public  void  run() {
-
         MessageDtoUtil.setKrValue(messageDto);
         if (orderService.clearingOrder(messageDto.getKr(),messageDto.getOid())) {
             String result = null;
