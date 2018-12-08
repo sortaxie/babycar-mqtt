@@ -7,8 +7,6 @@
     <groupId>com.adorgroup</groupId>
     <artifactId>babycar-mqtt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
@@ -20,7 +18,6 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.16.RELEASE</version>
     </parent>
-
 
     <dependencies>
         <dependency>

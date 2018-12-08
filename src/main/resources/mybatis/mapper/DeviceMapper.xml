@@ -9,13 +9,14 @@
     <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
     <result column="price_interval" jdbcType="DOUBLE" property="priceInterval" />
     <result column="station_id" jdbcType="VARCHAR" property="stationId" />
+    <result column="station_ks" jdbcType="INTEGER" property="stationKs" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, rfid, product_id, frn_id, unit_price, price_interval, station_id, create_time, 
-    modify_time, status
+    id, rfid, product_id, frn_id, unit_price, price_interval, station_id, station_ks, 
+    create_time, modify_time, status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -33,12 +34,12 @@
     </selectKey>
     insert into dvc_device (rfid, product_id, frn_id, 
       unit_price, price_interval, station_id, 
-      create_time, modify_time, status
-      )
+      station_ks, create_time, modify_time, 
+      status)
     values (#{rfid,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{frnId,jdbcType=INTEGER}, 
       #{unitPrice,jdbcType=DOUBLE}, #{priceInterval,jdbcType=DOUBLE}, #{stationId,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
-      )
+      #{stationKs,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.adorgroup.babycar.mqtt.domain.Device">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -63,6 +64,9 @@
       </if>
       <if test="stationId != null">
         station_id,
+      </if>
+      <if test="stationKs != null">
+        station_ks,
       </if>
       <if test="createTime != null">
         create_time,
@@ -92,6 +96,9 @@
       </if>
       <if test="stationId != null">
         #{stationId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationKs != null">
+        #{stationKs,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -125,6 +132,9 @@
       <if test="stationId != null">
         station_id = #{stationId,jdbcType=VARCHAR},
       </if>
+      <if test="stationKs != null">
+        station_ks = #{stationKs,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -145,6 +155,7 @@
       unit_price = #{unitPrice,jdbcType=DOUBLE},
       price_interval = #{priceInterval,jdbcType=DOUBLE},
       station_id = #{stationId,jdbcType=VARCHAR},
+      station_ks = #{stationKs,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER}

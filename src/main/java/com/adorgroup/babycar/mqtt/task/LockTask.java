@@ -26,7 +26,7 @@ public class LockTask extends BaseTask {
 
     public  void  run() {
         MessageDtoUtil.setKrValue(messageDto);
-        if (orderService.clearingOrder(messageDto.getKr(),messageDto.getOid())) {
+        if (orderService.clearingOrder(messageDto)) {
             String result = null;
             String rfid = messageDto.getKr();
             try {

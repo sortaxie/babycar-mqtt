@@ -1,12 +1,14 @@
 package com.adorgroup.babycar.mqtt.service;
 
+import com.adorgroup.framework.common.MessageDto;
+
 public interface OrderService {
     /**
      * 结算订单
-     * @param rfid
+     * @param messageDto
      * @return
      */
-    boolean clearingOrder(String rfid,String stationId);
+    boolean clearingOrder(MessageDto messageDto);
 
     /**
      * 车辆解锁

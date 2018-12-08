@@ -6,6 +6,7 @@ import com.adorgroup.babycar.mqtt.domain.Device;
 import com.adorgroup.babycar.mqtt.domain.Order;
 import com.adorgroup.babycar.mqtt.domain.enums.OrderStatus;
 import com.adorgroup.babycar.mqtt.service.OrderService;
+import com.adorgroup.framework.common.MessageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,9 @@ public class OrderServiceImpl implements OrderService {
     private DeviceMapper deviceMapper;
 
     @Override
-    public boolean clearingOrder(String rfid,String stationId) {
+    public boolean clearingOrder(MessageDto messageDto) {
+        String rfid= messageDto.getKr();
+        String stationId = messageDto.getOid();
         Order order = orderMapper.selectByRfid(rfid,OrderStatus.START.getValue());
         if(order!=null){
             Date endTime = new Date();
@@ -42,8 +45,28 @@ public class OrderServiceImpl implements OrderService {
             Device device = deviceMapper.selectByRfid(rfid);
             device.setStationId(stationId);
             Device updateDevice = new Device();
+            int ks=0;
+            if(messageDto.getKr1()!=null){
+                ks = 1;
+            }else if(messageDto.getKs2()!=null){
+                ks = 2;
+            }else if(messageDto.getKs3()!=null){
+                ks = 3;
+            }else if(messageDto.getKs4()!=null){
+                ks = 4;
+            }else if(messageDto.getKs5()!=null){
+                ks = 5;
+            }else if(messageDto.getKs6()!=null){
+                ks = 6;
+            }else if(messageDto.getKs7()!=null){
+                ks = 7;
+            }else if(messageDto.getKs8()!=null){
+                ks = 8;
+            }
+
             updateDevice.setId(device.getId());
             updateDevice.setStationId(stationId);
+            updateDevice.setStationKs(ks);
             deviceMapper.updateByPrimaryKeySelective(updateDevice);
             return true;
         }

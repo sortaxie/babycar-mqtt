@@ -17,6 +17,8 @@ public class Device {
 
     private String stationId;
 
+    private Integer stationKs;
+
     private Date createTime;
 
     private Date modifyTime;
@@ -77,6 +79,14 @@ public class Device {
 
     public void setStationId(String stationId) {
         this.stationId = stationId == null ? null : stationId.trim();
+    }
+
+    public Integer getStationKs() {
+        return stationKs;
+    }
+
+    public void setStationKs(Integer stationKs) {
+        this.stationKs = stationKs;
     }
 
     public Date getCreateTime() {
