@@ -2,6 +2,7 @@ package com.adorgroup.babycar.mqtt;
 
 import com.adorgroup.babycar.mqtt.common.CommandType;
 import com.adorgroup.babycar.mqtt.domain.enums.StationStatus;
+import com.adorgroup.babycar.mqtt.service.DeviceService;
 import com.adorgroup.babycar.mqtt.service.OrderService;
 import com.adorgroup.babycar.mqtt.service.StationService;
 import com.adorgroup.babycar.mqtt.task.ChangeStationStatusTask;
@@ -58,6 +59,9 @@ public class MqttReceiveConfig {
     private OrderService orderService;
     @Autowired
     private StationService stationService;
+    @Autowired
+    private DeviceService deviceService;
+
     @Bean
     public MqttConnectOptions getMqttConnectOptions(){
 
@@ -118,7 +122,7 @@ public class MqttReceiveConfig {
                         MessageDto messageDto =  mapper.readValue(data, MessageDto.class);
                         if(CommandType.LOCK.equals(messageDto.getType())) {
                              //闭锁 还车上报
-                          ThreadPoolManager.newInstance().addExecuteTask(new LockTask(messageDto,orderService,productId,mqttGateway));
+                          ThreadPoolManager.newInstance().addExecuteTask(new LockTask(messageDto,orderService,deviceService,productId,mqttGateway));
                         }else if(CommandType.ONLINE.equals(messageDto.getType())){
                             //设备上线
                             ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(messageDto.getOid(), StationStatus.ONLINE.getValue(),stationService)));

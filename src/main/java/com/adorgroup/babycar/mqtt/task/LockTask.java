@@ -1,6 +1,7 @@
 package com.adorgroup.babycar.mqtt.task;
 
 import com.adorgroup.babycar.mqtt.MqttGateway;
+import com.adorgroup.babycar.mqtt.service.DeviceService;
 import com.adorgroup.babycar.mqtt.service.OrderService;
 import com.adorgroup.babycar.mqtt.util.MessageDtoUtil;
 import com.adorgroup.framework.common.MessageDto;
@@ -17,15 +18,20 @@ public class LockTask extends BaseTask {
     private OrderService orderService;
     private String productId;
     private MqttGateway mqttGateway;
-    public LockTask(MessageDto messageDto, OrderService orderService, String productId, MqttGateway mqttGateway) {
+    private DeviceService deviceService;
+    public LockTask(MessageDto messageDto, OrderService orderService,DeviceService deviceService, String productId, MqttGateway mqttGateway) {
         super(messageDto);
         this.orderService = orderService;
+        this.deviceService = deviceService;
         this.productId = productId;
         this.mqttGateway = mqttGateway;
     }
 
     public  void  run() {
         MessageDtoUtil.setKrValue(messageDto);
+        if( !deviceService.updateDevice(messageDto)){
+            log.error("update device error rfid:"+ messageDto.getKr() +" stationId:"+messageDto.getOid());
+        }
         if (orderService.clearingOrder(messageDto)) {
             String result = null;
             String rfid = messageDto.getKr();

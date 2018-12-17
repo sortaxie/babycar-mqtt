@@ -1,10 +1,11 @@
 package com.adorgroup.babycar.mqtt.service;
 
+import com.adorgroup.framework.common.MessageDto;
+
 public interface DeviceService {
     /**
-     * 修改设备 状态
-     * @param deviceId
-     * @param stat
+     *  修改设备相关属性
+     * @param messageDto
      */
-    public void changeDeviceStat(String deviceId,int stat);
+     boolean updateDevice(MessageDto messageDto);
 }
