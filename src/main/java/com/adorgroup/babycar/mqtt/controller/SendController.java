@@ -1,18 +1,15 @@
 package com.adorgroup.babycar.mqtt.controller;
 
 import com.adorgroup.babycar.mqtt.MqttGateway;
-import com.adorgroup.babycar.mqtt.MqttReceiveConfig;
 import com.adorgroup.babycar.mqtt.util.CRCUtil;
 import com.adorgroup.babycar.mqtt.util.JacksonUtil;
 import com.adorgroup.framework.common.MessageDto;
 import com.adorgroup.framework.common.pojo.BaseResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,7 +24,7 @@ public class SendController {
     @Value("${adorgroup.mqtt.productId}")
     private String productId;
 
-    @PostMapping("sendToLock")
+    @RequestMapping(value="sendToLock",method =  RequestMethod.POST)
     public BaseResponse sendToLock(@RequestBody MessageDto messageDto){
         BaseResponse response = new BaseResponse();
         String json = JacksonUtil.toJson(messageDto);
