@@ -24,11 +24,15 @@
     <result column="pay_type" jdbcType="INTEGER" property="payType" />
     <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
     <result column="invoice_state" jdbcType="INTEGER" property="invoiceState" />
+    <result column="stt_status" jdbcType="INTEGER" property="sttStatus" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="return_station_id" jdbcType="VARCHAR" property="returnStationId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, frn_id, order_num, station_id, frn_station_id, station_unit_price, station_price_interval, 
     station_money, rfid, frn_device_id, device_unit_price, device_price_interval, device_money, 
-    user_id, start_time, end_time, moneys, pay_time, status, pay_type, pay_status, invoice_state
+    user_id, start_time, end_time, moneys, pay_time, status, pay_type, pay_status, invoice_state, 
+    stt_status, type, return_station_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -50,7 +54,8 @@
       device_unit_price, device_price_interval, device_money, 
       user_id, start_time, end_time, 
       moneys, pay_time, status, 
-      pay_type, pay_status, invoice_state
+      pay_type, pay_status, invoice_state, 
+      stt_status, type, return_station_id
       )
     values (#{frnId,jdbcType=INTEGER}, #{orderNum,jdbcType=VARCHAR}, #{stationId,jdbcType=VARCHAR}, 
       #{frnStationId,jdbcType=INTEGER}, #{stationUnitPrice,jdbcType=DOUBLE}, #{stationPriceInterval,jdbcType=DOUBLE}, 
@@ -58,7 +63,8 @@
       #{deviceUnitPrice,jdbcType=DOUBLE}, #{devicePriceInterval,jdbcType=DOUBLE}, #{deviceMoney,jdbcType=DOUBLE}, 
       #{userId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
       #{moneys,jdbcType=DOUBLE}, #{payTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
-      #{payType,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, #{invoiceState,jdbcType=INTEGER}
+      #{payType,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, #{invoiceState,jdbcType=INTEGER}, 
+      #{sttStatus,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{returnStationId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.adorgroup.babycar.mqtt.domain.Order">
@@ -130,6 +136,15 @@
       <if test="invoiceState != null">
         invoice_state,
       </if>
+      <if test="sttStatus != null">
+        stt_status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="returnStationId != null">
+        return_station_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="frnId != null">
@@ -194,6 +209,15 @@
       </if>
       <if test="invoiceState != null">
         #{invoiceState,jdbcType=INTEGER},
+      </if>
+      <if test="sttStatus != null">
+        #{sttStatus,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="returnStationId != null">
+        #{returnStationId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -263,6 +287,15 @@
       <if test="invoiceState != null">
         invoice_state = #{invoiceState,jdbcType=INTEGER},
       </if>
+      <if test="sttStatus != null">
+        stt_status = #{sttStatus,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="returnStationId != null">
+        return_station_id = #{returnStationId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -288,7 +321,10 @@
       status = #{status,jdbcType=INTEGER},
       pay_type = #{payType,jdbcType=INTEGER},
       pay_status = #{payStatus,jdbcType=INTEGER},
-      invoice_state = #{invoiceState,jdbcType=INTEGER}
+      invoice_state = #{invoiceState,jdbcType=INTEGER},
+      stt_status = #{sttStatus,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      return_station_id = #{returnStationId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

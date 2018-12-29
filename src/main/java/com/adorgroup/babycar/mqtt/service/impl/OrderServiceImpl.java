@@ -38,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
             updateOrder.setDeviceMoney(deviceMoney);
             updateOrder.setStationMoney(stationMoney);
             updateOrder.setMoneys(deviceMoney+stationMoney);
+            updateOrder.setReturnStationId(messageDto.getOid());
             updateOrder.setStatus(OrderStatus.END.getValue());
             orderMapper.updateByPrimaryKeySelective(updateOrder);
             return true;

@@ -47,6 +47,12 @@ public class Order {
 
     private Integer invoiceState;
 
+    private Integer sttStatus;
+
+    private Integer type;
+
+    private String returnStationId;
+
     public Long getId() {
         return id;
     }
@@ -221,5 +227,29 @@ public class Order {
 
     public void setInvoiceState(Integer invoiceState) {
         this.invoiceState = invoiceState;
+    }
+
+    public Integer getSttStatus() {
+        return sttStatus;
+    }
+
+    public void setSttStatus(Integer sttStatus) {
+        this.sttStatus = sttStatus;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getReturnStationId() {
+        return returnStationId;
+    }
+
+    public void setReturnStationId(String returnStationId) {
+        this.returnStationId = returnStationId == null ? null : returnStationId.trim();
     }
 }
