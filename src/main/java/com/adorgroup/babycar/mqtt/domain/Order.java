@@ -13,11 +13,7 @@ public class Order {
 
     private Integer frnStationId;
 
-    private Double stationUnitPrice;
-
-    private Double stationPriceInterval;
-
-    private Double stationMoney;
+    private Double stationCommission;
 
     private String rfid;
 
@@ -52,6 +48,24 @@ public class Order {
     private Integer type;
 
     private String returnStationId;
+
+    private String expression;
+
+    private String expressionRemark;
+
+    private Long minimumTerm;
+
+    private String duration;
+
+    private Integer unitPriceType;
+
+    private Double deposit;
+
+    private String mainOrderNumber;
+
+    private Integer orderType;
+
+    private Double freight;
 
     public Long getId() {
         return id;
@@ -93,28 +107,12 @@ public class Order {
         this.frnStationId = frnStationId;
     }
 
-    public Double getStationUnitPrice() {
-        return stationUnitPrice;
+    public Double getStationCommission() {
+        return stationCommission;
     }
 
-    public void setStationUnitPrice(Double stationUnitPrice) {
-        this.stationUnitPrice = stationUnitPrice;
-    }
-
-    public Double getStationPriceInterval() {
-        return stationPriceInterval;
-    }
-
-    public void setStationPriceInterval(Double stationPriceInterval) {
-        this.stationPriceInterval = stationPriceInterval;
-    }
-
-    public Double getStationMoney() {
-        return stationMoney;
-    }
-
-    public void setStationMoney(Double stationMoney) {
-        this.stationMoney = stationMoney;
+    public void setStationCommission(Double stationCommission) {
+        this.stationCommission = stationCommission;
     }
 
     public String getRfid() {
@@ -251,5 +249,77 @@ public class Order {
 
     public void setReturnStationId(String returnStationId) {
         this.returnStationId = returnStationId == null ? null : returnStationId.trim();
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression == null ? null : expression.trim();
+    }
+
+    public String getExpressionRemark() {
+        return expressionRemark;
+    }
+
+    public void setExpressionRemark(String expressionRemark) {
+        this.expressionRemark = expressionRemark == null ? null : expressionRemark.trim();
+    }
+
+    public Long getMinimumTerm() {
+        return minimumTerm;
+    }
+
+    public void setMinimumTerm(Long minimumTerm) {
+        this.minimumTerm = minimumTerm;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration == null ? null : duration.trim();
+    }
+
+    public Integer getUnitPriceType() {
+        return unitPriceType;
+    }
+
+    public void setUnitPriceType(Integer unitPriceType) {
+        this.unitPriceType = unitPriceType;
+    }
+
+    public Double getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(Double deposit) {
+        this.deposit = deposit;
+    }
+
+    public String getMainOrderNumber() {
+        return mainOrderNumber;
+    }
+
+    public void setMainOrderNumber(String mainOrderNumber) {
+        this.mainOrderNumber = mainOrderNumber == null ? null : mainOrderNumber.trim();
+    }
+
+    public Integer getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
+    }
+
+    public Double getFreight() {
+        return freight;
+    }
+
+    public void setFreight(Double freight) {
+        this.freight = freight;
     }
 }

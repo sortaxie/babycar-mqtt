@@ -7,9 +7,7 @@
     <result column="order_num" jdbcType="VARCHAR" property="orderNum" />
     <result column="station_id" jdbcType="VARCHAR" property="stationId" />
     <result column="frn_station_id" jdbcType="INTEGER" property="frnStationId" />
-    <result column="station_unit_price" jdbcType="DOUBLE" property="stationUnitPrice" />
-    <result column="station_price_interval" jdbcType="DOUBLE" property="stationPriceInterval" />
-    <result column="station_money" jdbcType="DOUBLE" property="stationMoney" />
+    <result column="station_commission" jdbcType="DOUBLE" property="stationCommission" />
     <result column="rfid" jdbcType="VARCHAR" property="rfid" />
     <result column="frn_device_id" jdbcType="INTEGER" property="frnDeviceId" />
     <result column="device_unit_price" jdbcType="DOUBLE" property="deviceUnitPrice" />
@@ -27,12 +25,22 @@
     <result column="stt_status" jdbcType="INTEGER" property="sttStatus" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="return_station_id" jdbcType="VARCHAR" property="returnStationId" />
+    <result column="expression" jdbcType="VARCHAR" property="expression" />
+    <result column="expression_remark" jdbcType="VARCHAR" property="expressionRemark" />
+    <result column="minimum_term" jdbcType="BIGINT" property="minimumTerm" />
+    <result column="duration" jdbcType="VARCHAR" property="duration" />
+    <result column="unit_price_type" jdbcType="INTEGER" property="unitPriceType" />
+    <result column="deposit" jdbcType="DOUBLE" property="deposit" />
+    <result column="main_order_number" jdbcType="VARCHAR" property="mainOrderNumber" />
+    <result column="order_type" jdbcType="INTEGER" property="orderType" />
+    <result column="freight" jdbcType="DOUBLE" property="freight" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, frn_id, order_num, station_id, frn_station_id, station_unit_price, station_price_interval, 
-    station_money, rfid, frn_device_id, device_unit_price, device_price_interval, device_money, 
-    user_id, start_time, end_time, moneys, pay_time, status, pay_type, pay_status, invoice_state, 
-    stt_status, type, return_station_id
+    id, frn_id, order_num, station_id, frn_station_id, station_commission, rfid, frn_device_id, 
+    device_unit_price, device_price_interval, device_money, user_id, start_time, end_time, 
+    moneys, pay_time, status, pay_type, pay_status, invoice_state, stt_status, type, 
+    return_station_id, expression, expression_remark, minimum_term, duration, unit_price_type, 
+    deposit, main_order_number, order_type, freight
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -49,23 +57,27 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into dvc_order (frn_id, order_num, station_id, 
-      frn_station_id, station_unit_price, station_price_interval, 
-      station_money, rfid, frn_device_id, 
-      device_unit_price, device_price_interval, device_money, 
-      user_id, start_time, end_time, 
-      moneys, pay_time, status, 
-      pay_type, pay_status, invoice_state, 
-      stt_status, type, return_station_id
-      )
+      frn_station_id, station_commission, rfid, 
+      frn_device_id, device_unit_price, device_price_interval, 
+      device_money, user_id, start_time, 
+      end_time, moneys, pay_time, 
+      status, pay_type, pay_status, 
+      invoice_state, stt_status, type, 
+      return_station_id, expression, expression_remark, 
+      minimum_term, duration, unit_price_type, 
+      deposit, main_order_number, order_type, 
+      freight)
     values (#{frnId,jdbcType=INTEGER}, #{orderNum,jdbcType=VARCHAR}, #{stationId,jdbcType=VARCHAR}, 
-      #{frnStationId,jdbcType=INTEGER}, #{stationUnitPrice,jdbcType=DOUBLE}, #{stationPriceInterval,jdbcType=DOUBLE}, 
-      #{stationMoney,jdbcType=DOUBLE}, #{rfid,jdbcType=VARCHAR}, #{frnDeviceId,jdbcType=INTEGER}, 
-      #{deviceUnitPrice,jdbcType=DOUBLE}, #{devicePriceInterval,jdbcType=DOUBLE}, #{deviceMoney,jdbcType=DOUBLE}, 
-      #{userId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{moneys,jdbcType=DOUBLE}, #{payTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
-      #{payType,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, #{invoiceState,jdbcType=INTEGER}, 
-      #{sttStatus,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{returnStationId,jdbcType=VARCHAR}
-      )
+      #{frnStationId,jdbcType=INTEGER}, #{stationCommission,jdbcType=DOUBLE}, #{rfid,jdbcType=VARCHAR}, 
+      #{frnDeviceId,jdbcType=INTEGER}, #{deviceUnitPrice,jdbcType=DOUBLE}, #{devicePriceInterval,jdbcType=DOUBLE}, 
+      #{deviceMoney,jdbcType=DOUBLE}, #{userId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{moneys,jdbcType=DOUBLE}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{payType,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, 
+      #{invoiceState,jdbcType=INTEGER}, #{sttStatus,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{returnStationId,jdbcType=VARCHAR}, #{expression,jdbcType=VARCHAR}, #{expressionRemark,jdbcType=VARCHAR}, 
+      #{minimumTerm,jdbcType=BIGINT}, #{duration,jdbcType=VARCHAR}, #{unitPriceType,jdbcType=INTEGER}, 
+      #{deposit,jdbcType=DOUBLE}, #{mainOrderNumber,jdbcType=VARCHAR}, #{orderType,jdbcType=INTEGER}, 
+      #{freight,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.adorgroup.babycar.mqtt.domain.Order">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -85,14 +97,8 @@
       <if test="frnStationId != null">
         frn_station_id,
       </if>
-      <if test="stationUnitPrice != null">
-        station_unit_price,
-      </if>
-      <if test="stationPriceInterval != null">
-        station_price_interval,
-      </if>
-      <if test="stationMoney != null">
-        station_money,
+      <if test="stationCommission != null">
+        station_commission,
       </if>
       <if test="rfid != null">
         rfid,
@@ -145,6 +151,33 @@
       <if test="returnStationId != null">
         return_station_id,
       </if>
+      <if test="expression != null">
+        expression,
+      </if>
+      <if test="expressionRemark != null">
+        expression_remark,
+      </if>
+      <if test="minimumTerm != null">
+        minimum_term,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="unitPriceType != null">
+        unit_price_type,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="mainOrderNumber != null">
+        main_order_number,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="freight != null">
+        freight,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="frnId != null">
@@ -159,14 +192,8 @@
       <if test="frnStationId != null">
         #{frnStationId,jdbcType=INTEGER},
       </if>
-      <if test="stationUnitPrice != null">
-        #{stationUnitPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="stationPriceInterval != null">
-        #{stationPriceInterval,jdbcType=DOUBLE},
-      </if>
-      <if test="stationMoney != null">
-        #{stationMoney,jdbcType=DOUBLE},
+      <if test="stationCommission != null">
+        #{stationCommission,jdbcType=DOUBLE},
       </if>
       <if test="rfid != null">
         #{rfid,jdbcType=VARCHAR},
@@ -219,6 +246,33 @@
       <if test="returnStationId != null">
         #{returnStationId,jdbcType=VARCHAR},
       </if>
+      <if test="expression != null">
+        #{expression,jdbcType=VARCHAR},
+      </if>
+      <if test="expressionRemark != null">
+        #{expressionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="minimumTerm != null">
+        #{minimumTerm,jdbcType=BIGINT},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPriceType != null">
+        #{unitPriceType,jdbcType=INTEGER},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="mainOrderNumber != null">
+        #{mainOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null">
+        #{freight,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.adorgroup.babycar.mqtt.domain.Order">
@@ -236,14 +290,8 @@
       <if test="frnStationId != null">
         frn_station_id = #{frnStationId,jdbcType=INTEGER},
       </if>
-      <if test="stationUnitPrice != null">
-        station_unit_price = #{stationUnitPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="stationPriceInterval != null">
-        station_price_interval = #{stationPriceInterval,jdbcType=DOUBLE},
-      </if>
-      <if test="stationMoney != null">
-        station_money = #{stationMoney,jdbcType=DOUBLE},
+      <if test="stationCommission != null">
+        station_commission = #{stationCommission,jdbcType=DOUBLE},
       </if>
       <if test="rfid != null">
         rfid = #{rfid,jdbcType=VARCHAR},
@@ -296,6 +344,33 @@
       <if test="returnStationId != null">
         return_station_id = #{returnStationId,jdbcType=VARCHAR},
       </if>
+      <if test="expression != null">
+        expression = #{expression,jdbcType=VARCHAR},
+      </if>
+      <if test="expressionRemark != null">
+        expression_remark = #{expressionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="minimumTerm != null">
+        minimum_term = #{minimumTerm,jdbcType=BIGINT},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPriceType != null">
+        unit_price_type = #{unitPriceType,jdbcType=INTEGER},
+      </if>
+      <if test="deposit != null">
+        deposit = #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="mainOrderNumber != null">
+        main_order_number = #{mainOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null">
+        freight = #{freight,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -305,9 +380,7 @@
       order_num = #{orderNum,jdbcType=VARCHAR},
       station_id = #{stationId,jdbcType=VARCHAR},
       frn_station_id = #{frnStationId,jdbcType=INTEGER},
-      station_unit_price = #{stationUnitPrice,jdbcType=DOUBLE},
-      station_price_interval = #{stationPriceInterval,jdbcType=DOUBLE},
-      station_money = #{stationMoney,jdbcType=DOUBLE},
+      station_commission = #{stationCommission,jdbcType=DOUBLE},
       rfid = #{rfid,jdbcType=VARCHAR},
       frn_device_id = #{frnDeviceId,jdbcType=INTEGER},
       device_unit_price = #{deviceUnitPrice,jdbcType=DOUBLE},
@@ -324,7 +397,16 @@
       invoice_state = #{invoiceState,jdbcType=INTEGER},
       stt_status = #{sttStatus,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
-      return_station_id = #{returnStationId,jdbcType=VARCHAR}
+      return_station_id = #{returnStationId,jdbcType=VARCHAR},
+      expression = #{expression,jdbcType=VARCHAR},
+      expression_remark = #{expressionRemark,jdbcType=VARCHAR},
+      minimum_term = #{minimumTerm,jdbcType=BIGINT},
+      duration = #{duration,jdbcType=VARCHAR},
+      unit_price_type = #{unitPriceType,jdbcType=INTEGER},
+      deposit = #{deposit,jdbcType=DOUBLE},
+      main_order_number = #{mainOrderNumber,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=INTEGER},
+      freight = #{freight,jdbcType=DOUBLE}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

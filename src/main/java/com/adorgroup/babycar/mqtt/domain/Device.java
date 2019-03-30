@@ -7,7 +7,7 @@ public class Device {
 
     private String rfid;
 
-    private String productId;
+    private Integer productId;
 
     private Integer frnId;
 
@@ -25,6 +25,24 @@ public class Device {
 
     private Integer status;
 
+    private Integer type;
+
+    private String expression;
+
+    private String expressionRemark;
+
+    private Long minimumTerm;
+
+    private Integer frequency;
+
+    private Integer unitPriceType;
+
+    private Double minPrice;
+
+    private String productName;
+
+    private Integer deliveryMethod;
+
     public Integer getId() {
         return id;
     }
@@ -41,12 +59,12 @@ public class Device {
         this.rfid = rfid == null ? null : rfid.trim();
     }
 
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId == null ? null : productId.trim();
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public Integer getFrnId() {
@@ -111,5 +129,77 @@ public class Device {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression == null ? null : expression.trim();
+    }
+
+    public String getExpressionRemark() {
+        return expressionRemark;
+    }
+
+    public void setExpressionRemark(String expressionRemark) {
+        this.expressionRemark = expressionRemark == null ? null : expressionRemark.trim();
+    }
+
+    public Long getMinimumTerm() {
+        return minimumTerm;
+    }
+
+    public void setMinimumTerm(Long minimumTerm) {
+        this.minimumTerm = minimumTerm;
+    }
+
+    public Integer getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Integer frequency) {
+        this.frequency = frequency;
+    }
+
+    public Integer getUnitPriceType() {
+        return unitPriceType;
+    }
+
+    public void setUnitPriceType(Integer unitPriceType) {
+        this.unitPriceType = unitPriceType;
+    }
+
+    public Double getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(Double minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName == null ? null : productName.trim();
+    }
+
+    public Integer getDeliveryMethod() {
+        return deliveryMethod;
+    }
+
+    public void setDeliveryMethod(Integer deliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
     }
 }

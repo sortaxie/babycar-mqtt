@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.adorgroup.babycar.mqtt.domain.Device">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="rfid" jdbcType="VARCHAR" property="rfid" />
-    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="frn_id" jdbcType="INTEGER" property="frnId" />
     <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
     <result column="price_interval" jdbcType="DOUBLE" property="priceInterval" />
@@ -13,10 +13,20 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="expression" jdbcType="VARCHAR" property="expression" />
+    <result column="expression_remark" jdbcType="VARCHAR" property="expressionRemark" />
+    <result column="minimum_term" jdbcType="BIGINT" property="minimumTerm" />
+    <result column="frequency" jdbcType="INTEGER" property="frequency" />
+    <result column="unit_price_type" jdbcType="INTEGER" property="unitPriceType" />
+    <result column="min_price" jdbcType="DOUBLE" property="minPrice" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="delivery_method" jdbcType="INTEGER" property="deliveryMethod" />
   </resultMap>
   <sql id="Base_Column_List">
     id, rfid, product_id, frn_id, unit_price, price_interval, station_id, station_ks, 
-    create_time, modify_time, status
+    create_time, modify_time, status, type, expression, expression_remark, minimum_term, 
+    frequency, unit_price_type, min_price, product_name, delivery_method
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -35,11 +45,17 @@
     insert into dvc_device (rfid, product_id, frn_id, 
       unit_price, price_interval, station_id, 
       station_ks, create_time, modify_time, 
-      status)
-    values (#{rfid,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{frnId,jdbcType=INTEGER}, 
+      status, type, expression, 
+      expression_remark, minimum_term, frequency, 
+      unit_price_type, min_price, product_name, 
+      delivery_method)
+    values (#{rfid,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, #{frnId,jdbcType=INTEGER}, 
       #{unitPrice,jdbcType=DOUBLE}, #{priceInterval,jdbcType=DOUBLE}, #{stationId,jdbcType=VARCHAR}, 
       #{stationKs,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=INTEGER})
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{expression,jdbcType=VARCHAR}, 
+      #{expressionRemark,jdbcType=VARCHAR}, #{minimumTerm,jdbcType=BIGINT}, #{frequency,jdbcType=INTEGER}, 
+      #{unitPriceType,jdbcType=INTEGER}, #{minPrice,jdbcType=DOUBLE}, #{productName,jdbcType=VARCHAR}, 
+      #{deliveryMethod,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.adorgroup.babycar.mqtt.domain.Device">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -77,13 +93,40 @@
       <if test="status != null">
         status,
       </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="expression != null">
+        expression,
+      </if>
+      <if test="expressionRemark != null">
+        expression_remark,
+      </if>
+      <if test="minimumTerm != null">
+        minimum_term,
+      </if>
+      <if test="frequency != null">
+        frequency,
+      </if>
+      <if test="unitPriceType != null">
+        unit_price_type,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="deliveryMethod != null">
+        delivery_method,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rfid != null">
         #{rfid,jdbcType=VARCHAR},
       </if>
       <if test="productId != null">
-        #{productId,jdbcType=VARCHAR},
+        #{productId,jdbcType=INTEGER},
       </if>
       <if test="frnId != null">
         #{frnId,jdbcType=INTEGER},
@@ -109,6 +152,33 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="expression != null">
+        #{expression,jdbcType=VARCHAR},
+      </if>
+      <if test="expressionRemark != null">
+        #{expressionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="minimumTerm != null">
+        #{minimumTerm,jdbcType=BIGINT},
+      </if>
+      <if test="frequency != null">
+        #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="unitPriceType != null">
+        #{unitPriceType,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryMethod != null">
+        #{deliveryMethod,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.adorgroup.babycar.mqtt.domain.Device">
@@ -118,7 +188,7 @@
         rfid = #{rfid,jdbcType=VARCHAR},
       </if>
       <if test="productId != null">
-        product_id = #{productId,jdbcType=VARCHAR},
+        product_id = #{productId,jdbcType=INTEGER},
       </if>
       <if test="frnId != null">
         frn_id = #{frnId,jdbcType=INTEGER},
@@ -144,13 +214,40 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="expression != null">
+        expression = #{expression,jdbcType=VARCHAR},
+      </if>
+      <if test="expressionRemark != null">
+        expression_remark = #{expressionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="minimumTerm != null">
+        minimum_term = #{minimumTerm,jdbcType=BIGINT},
+      </if>
+      <if test="frequency != null">
+        frequency = #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="unitPriceType != null">
+        unit_price_type = #{unitPriceType,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null">
+        min_price = #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryMethod != null">
+        delivery_method = #{deliveryMethod,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.adorgroup.babycar.mqtt.domain.Device">
     update dvc_device
     set rfid = #{rfid,jdbcType=VARCHAR},
-      product_id = #{productId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER},
       frn_id = #{frnId,jdbcType=INTEGER},
       unit_price = #{unitPrice,jdbcType=DOUBLE},
       price_interval = #{priceInterval,jdbcType=DOUBLE},
@@ -158,7 +255,16 @@
       station_ks = #{stationKs,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      expression = #{expression,jdbcType=VARCHAR},
+      expression_remark = #{expressionRemark,jdbcType=VARCHAR},
+      minimum_term = #{minimumTerm,jdbcType=BIGINT},
+      frequency = #{frequency,jdbcType=INTEGER},
+      unit_price_type = #{unitPriceType,jdbcType=INTEGER},
+      min_price = #{minPrice,jdbcType=DOUBLE},
+      product_name = #{productName,jdbcType=VARCHAR},
+      delivery_method = #{deliveryMethod,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
