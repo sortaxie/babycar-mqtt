@@ -10,4 +10,4 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://adorgroup:123456@www.ie-goal.cn:8761/eureka/
+      defaultZone: http://adorgroup:123456@s1.xzs.adorsmart.com:8761/eureka/,http://adorgroup:123456@s2.xzs.adorsmart.com:8761/eureka/

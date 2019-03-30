@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: adorgroup-babycar-mqtt
-
-server:
-  port: 8092
-  context-path: /
-  tomcat:
-    uri-encoding: UTF-8
