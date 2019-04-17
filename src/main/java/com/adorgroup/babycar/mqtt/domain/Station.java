@@ -31,9 +31,17 @@ public class Station {
 
     private Integer frnId;
 
-    private Double unitPrice;
+    private Integer type;
 
-    private Double priceInterval;
+    private Double commission;
+
+    private String bannerImages;
+
+    private String mobile;
+
+    private String contact;
+
+    private String headerImage;
 
     public String getId() {
         return id;
@@ -147,19 +155,51 @@ public class Station {
         this.frnId = frnId;
     }
 
-    public Double getUnitPrice() {
-        return unitPrice;
+    public Integer getType() {
+        return type;
     }
 
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-    public Double getPriceInterval() {
-        return priceInterval;
+    public Double getCommission() {
+        return commission;
     }
 
-    public void setPriceInterval(Double priceInterval) {
-        this.priceInterval = priceInterval;
+    public void setCommission(Double commission) {
+        this.commission = commission;
+    }
+
+    public String getBannerImages() {
+        return bannerImages;
+    }
+
+    public void setBannerImages(String bannerImages) {
+        this.bannerImages = bannerImages == null ? null : bannerImages.trim();
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact == null ? null : contact.trim();
+    }
+
+    public String getHeaderImage() {
+        return headerImage;
+    }
+
+    public void setHeaderImage(String headerImage) {
+        this.headerImage = headerImage == null ? null : headerImage.trim();
     }
 }

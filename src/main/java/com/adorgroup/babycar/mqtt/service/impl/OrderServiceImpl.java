@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
     public boolean clearingOrder(MessageDto messageDto) {
         String rfid= messageDto.getKr();
         Order order = orderMapper.selectByRfid(rfid,OrderStatus.START.getValue());
-        if(order!=null){
+        if(order!=null&&order.getStatus()==OrderStatus.START.getValue()){
             long time = System.currentTimeMillis() - order.getStartTime().getTime();
             boolean hour = order.getUnitPriceType().intValue() == OrderPriceType.HOUR.getValue();
             double deviceMoney;
@@ -62,7 +62,6 @@ public class OrderServiceImpl implements OrderService {
                 deviceMoney = order.getDeviceUnitPrice() * deviceTim;
             }
 
-
             Order updateOrder = new Order();
             updateOrder.setId(order.getId());
             updateOrder.setEndTime(new Date());
@@ -70,13 +69,6 @@ public class OrderServiceImpl implements OrderService {
             updateOrder.setMoneys(deviceMoney);
             updateOrder.setStatus(OrderStatus.END.getValue());
             updateOrder.setReturnStationId(messageDto.getOid());
-
-            Device device = new Device();
-            Device dev = deviceMapper.selectByRfid(order.getRfid());
-            device.setId(dev.getId());
-            device.setStationId(messageDto.getOid());
-            device.setStatus(DeviceStatus.AVAILABLE.getValue());
-            deviceMapper.updateByPrimaryKeySelective(device);
             orderMapper.updateByPrimaryKeySelective(updateOrder);
 
 

@@ -16,12 +16,17 @@
     <result column="tencent_lng" jdbcType="DOUBLE" property="tencentLng" />
     <result column="tencent_lat" jdbcType="DOUBLE" property="tencentLat" />
     <result column="frn_id" jdbcType="INTEGER" property="frnId" />
-    <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
-    <result column="price_interval" jdbcType="DOUBLE" property="priceInterval" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="commission" jdbcType="DOUBLE" property="commission" />
+    <result column="banner_images" jdbcType="VARCHAR" property="bannerImages" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="header_image" jdbcType="VARCHAR" property="headerImage" />
   </resultMap>
   <sql id="Base_Column_List">
     id, remark, status, intime, worktime, address, name, gprs_lng, gprs_lat, baidu_lng, 
-    baidu_lat, tencent_lng, tencent_lat, frn_id, unit_price, price_interval
+    baidu_lat, tencent_lng, tencent_lat, frn_id, type, commission, banner_images, mobile, 
+    contact, header_image
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -41,14 +46,16 @@
       worktime, address, name, 
       gprs_lng, gprs_lat, baidu_lng, 
       baidu_lat, tencent_lng, tencent_lat, 
-      frn_id, unit_price, price_interval
-      )
+      frn_id, type, commission, 
+      banner_images, mobile, contact, 
+      header_image)
     values (#{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{intime,jdbcType=TIMESTAMP}, 
       #{worktime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{gprsLng,jdbcType=DOUBLE}, #{gprsLat,jdbcType=DOUBLE}, #{baiduLng,jdbcType=DOUBLE}, 
       #{baiduLat,jdbcType=DOUBLE}, #{tencentLng,jdbcType=DOUBLE}, #{tencentLat,jdbcType=DOUBLE}, 
-      #{frnId,jdbcType=INTEGER}, #{unitPrice,jdbcType=DOUBLE}, #{priceInterval,jdbcType=DOUBLE}
-      )
+      #{frnId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{commission,jdbcType=DOUBLE}, 
+      #{bannerImages,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{headerImage,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.adorgroup.babycar.mqtt.domain.Station">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
@@ -95,11 +102,23 @@
       <if test="frnId != null">
         frn_id,
       </if>
-      <if test="unitPrice != null">
-        unit_price,
+      <if test="type != null">
+        type,
       </if>
-      <if test="priceInterval != null">
-        price_interval,
+      <if test="commission != null">
+        commission,
+      </if>
+      <if test="bannerImages != null">
+        banner_images,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="headerImage != null">
+        header_image,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -142,11 +161,23 @@
       <if test="frnId != null">
         #{frnId,jdbcType=INTEGER},
       </if>
-      <if test="unitPrice != null">
-        #{unitPrice,jdbcType=DOUBLE},
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
       </if>
-      <if test="priceInterval != null">
-        #{priceInterval,jdbcType=DOUBLE},
+      <if test="commission != null">
+        #{commission,jdbcType=DOUBLE},
+      </if>
+      <if test="bannerImages != null">
+        #{bannerImages,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="headerImage != null">
+        #{headerImage,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -192,11 +223,23 @@
       <if test="frnId != null">
         frn_id = #{frnId,jdbcType=INTEGER},
       </if>
-      <if test="unitPrice != null">
-        unit_price = #{unitPrice,jdbcType=DOUBLE},
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="priceInterval != null">
-        price_interval = #{priceInterval,jdbcType=DOUBLE},
+      <if test="commission != null">
+        commission = #{commission,jdbcType=DOUBLE},
+      </if>
+      <if test="bannerImages != null">
+        banner_images = #{bannerImages,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="headerImage != null">
+        header_image = #{headerImage,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -216,8 +259,12 @@
       tencent_lng = #{tencentLng,jdbcType=DOUBLE},
       tencent_lat = #{tencentLat,jdbcType=DOUBLE},
       frn_id = #{frnId,jdbcType=INTEGER},
-      unit_price = #{unitPrice,jdbcType=DOUBLE},
-      price_interval = #{priceInterval,jdbcType=DOUBLE}
+      type = #{type,jdbcType=INTEGER},
+      commission = #{commission,jdbcType=DOUBLE},
+      banner_images = #{bannerImages,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      header_image = #{headerImage,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

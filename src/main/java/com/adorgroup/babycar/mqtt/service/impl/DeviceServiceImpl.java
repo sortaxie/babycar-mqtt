@@ -2,6 +2,7 @@ package com.adorgroup.babycar.mqtt.service.impl;
 
 import com.adorgroup.babycar.mqtt.dao.DeviceMapper;
 import com.adorgroup.babycar.mqtt.domain.Device;
+import com.adorgroup.babycar.mqtt.domain.enums.DeviceStatus;
 import com.adorgroup.babycar.mqtt.service.DeviceService;
 import com.adorgroup.framework.common.MessageDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class DeviceServiceImpl implements DeviceService {
             updateDevice.setId(device.getId());
             updateDevice.setStationId(stationId);
             updateDevice.setStationKs(ks);
+            updateDevice.setStatus(DeviceStatus.AVAILABLE.getValue());
             deviceMapper.updateByPrimaryKeySelective(updateDevice);
             return true;
         }
