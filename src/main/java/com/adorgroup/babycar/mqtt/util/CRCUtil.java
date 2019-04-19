@@ -2,7 +2,7 @@ package com.adorgroup.babycar.mqtt.util;
 
 /** 
  * CRC16_CCITT 算法
- * @author wjj
+ * @author sorta
  */  
 public class CRCUtil {  
 
@@ -39,9 +39,9 @@ public class CRCUtil {
 //    	String s = "{\"type\":\"0\"}"; 
     	//String s = "{\"type\":\"7\",\"oid\":\"00000002\",";
     	String s = "{\"type\":\"72\",\"oid\":\"00000001\",\"ks3\":\"1\",";
-    	 //"crc":"5d4b
 		int crc = CRCUtil.CRC16Ccitt(s.getBytes());
 		System.out.println(Integer.toHexString(crc));
+		//结果为1e47
 	}
   
 }

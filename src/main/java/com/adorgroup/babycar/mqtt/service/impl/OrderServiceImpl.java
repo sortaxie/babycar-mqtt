@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public boolean clearingOrder(MessageDto messageDto) {
+    public Integer clearingOrder(MessageDto messageDto) {
         String rfid= messageDto.getKr();
         Order order = orderMapper.selectByRfid(rfid,OrderStatus.START.getValue());
         if(order!=null&&order.getStatus()==OrderStatus.START.getValue()){
@@ -81,9 +81,9 @@ public class OrderServiceImpl implements OrderService {
 //            updateOrder.setReturnStationId(messageDto.getOid());
 //            updateOrder.setStatus(OrderStatus.END.getValue());
 //            orderMapper.updateByPrimaryKeySelective(updateOrder);
-            return true;
+            return order.getUserId();
         }
-        return false;
+        return null;
     }
 
     @Override

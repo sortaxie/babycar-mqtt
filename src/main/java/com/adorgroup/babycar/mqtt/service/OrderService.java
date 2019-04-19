@@ -6,9 +6,9 @@ public interface OrderService {
     /**
      * 结算订单
      * @param messageDto
-     * @return
+     * @return 订单的用户Id
      */
-    boolean clearingOrder(MessageDto messageDto);
+    Integer clearingOrder(MessageDto messageDto);
 
     /**
      * 车辆解锁

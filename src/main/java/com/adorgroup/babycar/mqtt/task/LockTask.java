@@ -29,10 +29,13 @@ public class LockTask extends BaseTask {
 
     public  void  run() {
         MessageDtoUtil.setKrValue(messageDto);
+        //因为初始化设备时候没有订单,直接设置设备在哪个站点所以没有写在一个事务里面
         if( !deviceService.updateDevice(messageDto)){
             log.error("update device error rfid:"+ messageDto.getKr() +" stationId:"+messageDto.getOid());
         }
-        if (orderService.clearingOrder(messageDto)) {
+
+        Integer userId=orderService.clearingOrder(messageDto);
+        if (userId!=null) {
             String result = null;
             String rfid = messageDto.getKr();
             try {
@@ -42,7 +45,7 @@ public class LockTask extends BaseTask {
             } catch (JsonProcessingException e) {
                 log.error("out errer:", e);
             }
-            String sendTopic = "lock/" + productId + "/" + rfid;
+            String sendTopic = "lock/" + productId + "/" + userId;
             log.info("topic:" + sendTopic);
             mqttGateway.sendToMqtt(result, sendTopic);
         }else{
