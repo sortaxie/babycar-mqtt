@@ -22,6 +22,31 @@ public class UnLockTask extends BaseTask{
 
     public  void  run() {
         MessageDtoUtil.setKrValue(messageDto);
+        //如果开锁失败
+        if("1".equals(messageDto.getKs1())){
+            return;
+        }else if("1".equals(messageDto.getKs2())){
+            return;
+        }
+        else if("1".equals(messageDto.getKs3())){
+            return;
+        }
+        else if("1".equals(messageDto.getKs4())){
+            return;
+        }
+        else if("1".equals(messageDto.getKs5())){
+            return;
+        }
+        else if("1".equals(messageDto.getKs6())){
+            return;
+        }
+        else if("1".equals(messageDto.getKs7())){
+            return;
+        }
+        else if("1".equals(messageDto.getKs8())){
+            return;
+        }
+
         if(!orderService.unlock(messageDto.getKr())) {
             log.error("unlock car error rfid:" + messageDto.getKr() + " stationId:" + messageDto.getOid());
         }

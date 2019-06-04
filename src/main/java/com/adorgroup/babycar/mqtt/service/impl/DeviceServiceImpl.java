@@ -25,7 +25,7 @@ public class DeviceServiceImpl implements DeviceService {
             device.setStationId(stationId);
             Device updateDevice = new Device();
             int ks = 0;
-            if (messageDto.getKr1() != null) {
+            if (messageDto.getKs1() != null) {
                 ks = 1;
             } else if (messageDto.getKs2() != null) {
                 ks = 2;
