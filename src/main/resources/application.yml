@@ -9,3 +9,6 @@ server:
     uri-encoding: UTF-8
 
 
+babycar:
+  mqtt:
+    freeTime: 60000
