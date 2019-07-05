@@ -23,6 +23,11 @@ public interface OrderMapper {
     @Select("select * from dvc_order o where o.rfid =#{rfid} and o.status = #{status}")
     Order selectByRfid(@Param("rfid") String rfid,@Param("status")int status);
 
+    @Select("select * from dvc_order o where o.rfid =#{rfid} order by id desc limit 0,1")
+    Order selectOneByRfidDesc(@Param("rfid") String rfid);
+
     @Select("select * from dvc_order o where o.status =#{status}")
     List<Order> selectByStatus(@Param("status") int status);
+
+    int updateOrderUnlock(Order record);
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adorgroup.babycar.mqtt.dao.OrderMapper">
+  <update id="updateOrderUnlock" parameterType="com.adorgroup.babycar.mqtt.domain.Order">
+       update dvc_order
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="endTime == null">
+        end_time = null
+      </if>
+      where id = #{id,jdbcType=BIGINT}
+    </set>
+  </update>
+</mapper>

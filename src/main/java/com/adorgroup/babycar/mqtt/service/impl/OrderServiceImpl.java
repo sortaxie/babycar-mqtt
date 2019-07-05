@@ -29,7 +29,8 @@ public class OrderServiceImpl implements OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
     @Autowired
     private OrderMapper orderMapper;
-
+    @Autowired
+    private DeviceMapper deviceMapper;
 
     @Value("${babycar.mqtt.freeTime}")
     private long freeTime;
@@ -55,13 +56,15 @@ public class OrderServiceImpl implements OrderService {
                     deviceMoney = JexlUtil.evaluate(context, order.getExpression());
                 } else {
                     double tim;
-                    if (hour) {
+                    if (order.getUnitPriceType().intValue() == OrderPriceType.HOUR.getValue()) {
                         tim = 3600000.0;
-                    } else {
+                    } else  if (order.getUnitPriceType().intValue() == OrderPriceType.DAY.getValue()) {
                         tim = 86400000.0;
+                    } else {
+                        tim = 60000.0;
                     }
                     double deviceTim = Math.ceil(time / tim / order.getDevicePriceInterval());
-                    logger.info("统一价 时间" + deviceTim + "   是否是小时单位   " + hour);
+                    logger.info("统一价 时间" + deviceTim + "   单位   " + order.getUnitPriceType().intValue());
                     if (deviceTim < order.getMinimumTerm().longValue()) {
                         deviceTim = order.getMinimumTerm();
                     }
@@ -93,14 +96,23 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
+    @Transactional
     @Override
     public boolean unlock(String rfid) {
-        Order order = orderMapper.selectByRfid(rfid,OrderStatus.PRE.getValue());
+        Order order = orderMapper.selectOneByRfidDesc(rfid);
         if(order!=null){
             Order updateOrder = new Order();
             updateOrder.setId(order.getId());
             updateOrder.setStatus(OrderStatus.START.getValue());
-            orderMapper.updateByPrimaryKeySelective(updateOrder);
+            if(order.getEndTime()!=null){    // 定时任务检测网络超时 作废订单
+                updateOrder.setEndTime(null);
+            }
+            Device device = deviceMapper.selectByRfid(order.getRfid());
+            Device updateDevice = new Device();
+            updateDevice.setId(device.getId());
+            updateDevice.setStatus(DeviceStatus.USING.getValue());
+            orderMapper.updateOrderUnlock(updateOrder);
+            deviceMapper.updateByPrimaryKeySelective(updateDevice);
             return true;
         }
         return false;
