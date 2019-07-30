@@ -52,4 +52,43 @@ public class DeviceServiceImpl implements DeviceService {
 
         return false;
     }
+
+    @Override
+    public void syncDevices(MessageDto messageDto) {
+         if(messageDto!=null){
+             int ks = 0;
+             if ("0".equals(messageDto.getKs1())) {
+                 ks = 1;
+                 deviceMapper.updateByRfid(messageDto.getKr1(),messageDto.getOid(),ks,DeviceStatus.AVAILABLE.getValue());
+             }
+             if ("0".equals(messageDto.getKs2()) ) {
+                 ks = 2;
+                 deviceMapper.updateByRfid(messageDto.getKr2(),messageDto.getOid(),ks,DeviceStatus.AVAILABLE.getValue());
+             }
+             if ("0".equals(messageDto.getKs3())) {
+                 ks = 3;
+                 deviceMapper.updateByRfid(messageDto.getKr3(),messageDto.getOid(),ks,DeviceStatus.AVAILABLE.getValue());
+             }
+             if ("0".equals(messageDto.getKs4())) {
+                 ks = 4;
+                 deviceMapper.updateByRfid(messageDto.getKr4(),messageDto.getOid(),ks,DeviceStatus.AVAILABLE.getValue());
+             }
+             if ("0".equals(messageDto.getKs5())) {
+                 ks = 5;
+                 deviceMapper.updateByRfid(messageDto.getKr5(),messageDto.getOid(),ks,DeviceStatus.AVAILABLE.getValue());
+             }
+             if ("0".equals(messageDto.getKs6())) {
+                 ks = 6;
+                 deviceMapper.updateByRfid(messageDto.getKr6(),messageDto.getOid(),ks,DeviceStatus.AVAILABLE.getValue());
+             }
+             if (messageDto.getKs7() != null) {
+                 ks = 7;
+                 deviceMapper.updateByRfid(messageDto.getKr7(),messageDto.getOid(),ks,DeviceStatus.AVAILABLE.getValue());
+             }
+             if (messageDto.getKs8() != null) {
+                 ks = 8;
+                 deviceMapper.updateByRfid(messageDto.getKr8(),messageDto.getOid(),ks,DeviceStatus.AVAILABLE.getValue());
+             }
+         }
+    }
 }

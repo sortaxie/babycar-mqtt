@@ -7,6 +7,7 @@ import com.adorgroup.babycar.mqtt.service.OrderService;
 import com.adorgroup.babycar.mqtt.service.StationService;
 import com.adorgroup.babycar.mqtt.task.ChangeStationStatusTask;
 import com.adorgroup.babycar.mqtt.task.LockTask;
+import com.adorgroup.babycar.mqtt.task.SyncDeviceTask;
 import com.adorgroup.babycar.mqtt.task.UnLockTask;
 import com.adorgroup.babycar.mqtt.util.ThreadPoolManager;
 import com.adorgroup.framework.common.MessageDto;
@@ -125,7 +126,8 @@ public class MqttReceiveConfig {
                           ThreadPoolManager.newInstance().addExecuteTask(new LockTask(messageDto,orderService,deviceService,productId,mqttGateway));
                         }else if(CommandType.ONLINE.equals(messageDto.getType())){
                             //设备上线
-                            ThreadPoolManager.newInstance().addExecuteTask((new ChangeStationStatusTask(messageDto.getOid(), StationStatus.ONLINE.getValue(),stationService)));
+                            ThreadPoolManager.newInstance().addExecuteTask(new ChangeStationStatusTask(messageDto.getOid(), StationStatus.ONLINE.getValue(),stationService));
+                            ThreadPoolManager.newInstance().addExecuteTask(new SyncDeviceTask(messageDto,deviceService));
                         }else if(CommandType.UNLOCK.equals(messageDto.getType())){
                             // 解锁 借车
                             ThreadPoolManager.newInstance().addExecuteTask(new UnLockTask(messageDto,orderService));

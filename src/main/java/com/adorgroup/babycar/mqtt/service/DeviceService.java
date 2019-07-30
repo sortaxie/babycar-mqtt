@@ -8,4 +8,10 @@ public interface DeviceService {
      * @param messageDto
      */
      boolean updateDevice(MessageDto messageDto);
+
+    /**
+     * 同步设备
+     * @param messageDto
+     */
+     void syncDevices(MessageDto messageDto);
 }
